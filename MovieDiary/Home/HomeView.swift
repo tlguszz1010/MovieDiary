@@ -16,7 +16,7 @@ class HomeView: BaseView {
         view.scrollDirection = .vertical
         view.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         let myWidth: CGFloat = UIScreen.main.bounds.width
-        view.itemSize = CGSize(width: myWidth / 2.5, height: myWidth / 1.7)
+        view.itemSize = CGSize(width: myWidth, height: myWidth / 1.7)
         
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
         collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
