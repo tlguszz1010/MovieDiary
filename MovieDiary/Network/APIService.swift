@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 // MARK: - ResponseData
 struct ResponseData: Codable {
@@ -52,15 +53,17 @@ struct Result: Codable {
 }
 
 class APIService {
-    func getMostPopular() {
+    func getMostPopular(completionHandler: @escaping (JSON) -> Void) {
         let url = BaseURL.popularURL + APIKey.TMDB
         let headers : HTTPHeaders = ["Content-Type" : "application/json;charset=utf-8"]
-        AF.request(url, method: .get, headers: headers).responseDecodable(of: ResponseData.self) { response in
-            print(response)
+        AF.request(url, method: .get, headers: headers).validate().validate(statusCode: 200...500).responseJSON { response in
+
             switch response.result {
-            case .success(_):
-                guard let statusCode = response.response?.statusCode else { return }
-                print(statusCode)
+            case let .success(value):
+                let json = JSON(value)
+                
+                completionHandler(json)
+                
             case .failure(_):
                 guard let statusCode = response.response?.statusCode else { return }
                 print(statusCode)

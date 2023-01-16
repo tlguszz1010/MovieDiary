@@ -7,15 +7,20 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
+    
+    let api = APIService()
+    var posterList : [String] = []
     
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+      
         let layout = HomeInsideFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -29,9 +34,17 @@ class HomeCollectionViewCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
         
+        api.getMostPopular { [weak self] json in
+            for items in json["results"].arrayValue {
+                self?.posterList.append(items["poster_path"].stringValue)
+                print(self!.posterList)
+                print("📮📮📮")
+                print(self?.posterList.count)
+            }
+            collectionView.reloadData()
+        }
     }
-    
-    
+  
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,11 +58,12 @@ extension HomeCollectionViewCell: UICollectionViewDelegate, UICollectionViewData
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return posterList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInsideCollectionViewCell.identifier, for: indexPath) as! HomeInsideCollectionViewCell
+        cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + posterList[indexPath.row]))
         return cell
     }
     
