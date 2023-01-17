@@ -52,9 +52,18 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = mainView.movieCollectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        
+        if indexPath.section == 0 {
+            cell.url = BaseURL.popularURL + APIKey.TMDB
+        } else if indexPath.section == 1 {
+            cell.url = BaseURL.topRatedURL + APIKey.TMDB
+           
+        } else if indexPath.section == 2 {
+            cell.url = BaseURL.upcomingURL + APIKey.TMDB
+        }
+        cell.test()
         return cell
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
@@ -68,16 +77,10 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
                 header.headerLabel.text = "개봉 예정인 영화"
             }
             return header
-            
         } else {
             return UICollectionReusableView()
         }
     }
-    
-    
-   
-    
-    
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
