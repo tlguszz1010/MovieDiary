@@ -14,7 +14,6 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         SearchBar()
-        // Do any additional setup after loading the view.
     }
     
     

@@ -54,7 +54,6 @@ struct Result: Codable {
 
 class APIService {
     func getHomeAPI(url: String, completionHandler: @escaping (JSON) -> Void) {
-//        let url = BaseURL.popularURL + APIKey.TMDB
         let headers : HTTPHeaders = ["Content-Type" : "application/json;charset=utf-8"]
         AF.request(url, method: .get, headers: headers).validate().validate(statusCode: 200...500).responseJSON { response in
             switch response.result {

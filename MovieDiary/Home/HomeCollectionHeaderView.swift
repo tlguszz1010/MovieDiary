@@ -13,16 +13,13 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     let headerLabel : UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "Header".uppercased()
         label.font = .systemFont(ofSize: 30)
-        
         return label
     }()
     
 
     func configureHeaderView() {
-        
-        addSubview(headerLabel)
+        self.addSubview(headerLabel)
         headerLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -30,7 +27,6 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         headerLabel.frame = bounds
     }
 }

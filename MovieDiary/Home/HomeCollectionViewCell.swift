@@ -35,22 +35,16 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         
     }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         posterList.removeAll()
     }
     
-    func test() {
+    func requestAPI() {
         api.getHomeAPI(url: url) { [weak self] json in
             for items in json["results"].arrayValue {
                 self?.posterList.append(items["poster_path"].stringValue)
-//                print(self!.posterList)
-//                print("📮📮📮")
-//                print(self?.posterList.count)
             }
-            print(self?.posterList.count)
-            print("------")
             self?.collectionView.reloadData()
         }
     }
@@ -71,14 +65,11 @@ extension HomeCollectionViewCell: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInsideCollectionViewCell.identifier, for: indexPath) as! HomeInsideCollectionViewCell
         cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + posterList[indexPath.row]))
         return cell
         
-        
     }
-    
 }
 
 extension HomeCollectionViewCell: UICollectionViewDelegateFlowLayout {

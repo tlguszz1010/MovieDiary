@@ -8,17 +8,34 @@
 import UIKit
 import Kingfisher
 
+@frozen enum APIIndex : Int, CaseIterable {
+    case popularIdx
+    case toprateIdx
+    case upcomingIdx
+    
+    var SectionTitle : String {
+        switch self {
+        case .popularIdx:
+            return "인기있는 영화"
+        case .toprateIdx:
+            return "평점 높은 영화"
+        case .upcomingIdx:
+            return "개봉 예정인 영화"
+            
+        }
+    }
+    
+    static var numberOfRows: Int {
+        return Self.allCases.count
+    }
+}
 
 class HomeViewController: UIViewController {
-   
-    
     let mainView = HomeView()
-    
     
     override func loadView() {
         self.view = mainView
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,13 +54,11 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    
-    
 }
 
 extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return APIIndex.numberOfRows
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -52,15 +67,17 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = mainView.movieCollectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        if indexPath.section == 0 {
+        guard let index = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        switch index {
+        case .popularIdx:
             cell.url = BaseURL.popularURL + APIKey.TMDB
-        } else if indexPath.section == 1 {
+        case .toprateIdx:
             cell.url = BaseURL.topRatedURL + APIKey.TMDB
-           
-        } else if indexPath.section == 2 {
+        case .upcomingIdx:
             cell.url = BaseURL.upcomingURL + APIKey.TMDB
         }
-        cell.test()
+       
+        cell.requestAPI()
         return cell
     }
     
@@ -69,12 +86,14 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         if kind == UICollectionView.elementKindSectionHeader {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeCollectionHeaderView.identifier, for: indexPath) as? HomeCollectionHeaderView else { return HomeCollectionHeaderView() }
             header.configureHeaderView()
-            if indexPath.section == 0 {
-                header.headerLabel.text = "인기있는 영화"
-            } else if indexPath.section == 1 {
-                header.headerLabel.text = "평점 높은 영화"
-            } else if indexPath.section == 2 {
-                header.headerLabel.text = "개봉 예정인 영화"
+            guard let index = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
+            switch index {
+            case .popularIdx:
+                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
+            case .toprateIdx:
+                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
+            case .upcomingIdx:
+                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             }
             return header
         } else {
