@@ -32,6 +32,7 @@ import Kingfisher
 
 class HomeViewController: UIViewController {
     let mainView = HomeView()
+    let viewModel = HomeViewModel()
     
     override func loadView() {
         self.view = mainView

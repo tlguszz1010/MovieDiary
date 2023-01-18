@@ -12,7 +12,7 @@ import Kingfisher
 class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
     
-    let api = APIService()
+    let api = Repository()
     var posterList : [String] = []
     var url : String = ""
     
@@ -41,9 +41,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func requestAPI() {
-        api.getHomeAPI(url: url) { [weak self] json in
-            for items in json["results"].arrayValue {
-                self?.posterList.append(items["poster_path"].stringValue)
+        api.getHomeAPI(url: url) { [weak self] value in
+            for items in value.results {
+                self?.posterList.append(items.posterPath)
             }
             self?.collectionView.reloadData()
         }
@@ -51,6 +51,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     
 }

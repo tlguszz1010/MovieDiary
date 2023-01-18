@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    let api = APIService()
+    let api = Repository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
