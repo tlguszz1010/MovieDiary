@@ -13,7 +13,7 @@ import Foundation
 // MARK: - ResponseData
 struct ResponseData: Codable {
     let page: Int
-    let results: [Result]
+    let results: [ResultModel]
     let totalPages, totalResults: Int
 
     enum CodingKeys: String, CodingKey {
@@ -23,7 +23,7 @@ struct ResponseData: Codable {
     }
 }
 
-struct Result: Codable {
+struct ResultModel: Codable {
     let adult: Bool
     let backdropPath: String?
     let genreIDS: [Int]

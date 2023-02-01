@@ -10,5 +10,4 @@ import Foundation
 class Service {
     let repository = Repository()
     var currentModel = Model(posterList: [])
-    
 }

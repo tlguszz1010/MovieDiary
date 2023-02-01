@@ -10,19 +10,33 @@ import Alamofire
 
 //MARK: 서버에서 받아온 데이터를 Struct 형태로 만들어서 전달. -> Service가 받게됨
 
-class Repository {
+enum DecodeError: Error, LocalizedError {
+    case decodeErr
     
-    func getHomeAPI(url: String, completionHandler: @escaping (ResponseData) -> Void) {
+    var errorDescription: String? {
+        switch self {
+        case .decodeErr:
+            return "디코딩 안됨"
+        }
+    }
+}
+
+class Repository {
+    static let shared = Repository()
+    
+    // Result 타입 적용
+    func getHomeAPI(url: String, completion: @escaping (Result<ResponseData, Error>) -> Void) {
         let headers : HTTPHeaders = ["Content-Type" : "application/json;charset=utf-8"]
         AF.request(url, method: .get, headers: headers).validate().validate(statusCode: 200...500).responseDecodable(of: ResponseData.self ) { response in
             switch response.result {
             case let .success(value):
                 guard let statusCode = response.response?.statusCode else { return }
                 print("Success\(statusCode)")
-                completionHandler(value)
+                completion(.success(value))
                 
-            case .failure(_):
+            case let .failure(error):
                 guard let statusCode = response.response?.statusCode else { return }
+                completion(.failure(error))
                 print("Failure\(statusCode)")
             }
         }

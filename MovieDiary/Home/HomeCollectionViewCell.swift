@@ -13,8 +13,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
     
     let api = Repository()
-    var posterList : [String] = []
-    var url : String = ""
+    let viewModel = cellViewModel()
     
     let collectionView : UICollectionView
     
@@ -22,32 +21,29 @@ class HomeCollectionViewCell: UICollectionViewCell {
         let layout = HomeInsideFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(frame: frame)
-        
+        viewModel.input.initTrigger.value = collectionViewUI()
+        viewModel.output.data.bind { [weak self] _ in // VM에서 output의 데이터가 바뀜을 감지하고 컬렉션 뷰 리로드
+            self?.collectionView.reloadData()
+        }
+        self.backgroundColor = .systemPink
+    }
+    
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        posterList.removeAll()
+//    }
+    
+    func collectionViewUI() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        self.addSubview(collectionView)
-        self.backgroundColor = .systemPink
         collectionView.register(HomeInsideCollectionViewCell.self, forCellWithReuseIdentifier: HomeInsideCollectionViewCell.identifier)
-        
+        self.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        
-    }
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        posterList.removeAll()
     }
     
-    func requestAPI() {
-        api.getHomeAPI(url: url) { [weak self] value in
-            for items in value.results {
-                self?.posterList.append(items.posterPath)
-            }
-            self?.collectionView.reloadData()
-        }
-    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -62,14 +58,14 @@ extension HomeCollectionViewCell: UICollectionViewDelegate, UICollectionViewData
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posterList.count
+        return self.viewModel.posterList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInsideCollectionViewCell.identifier, for: indexPath) as! HomeInsideCollectionViewCell
-        cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + posterList[indexPath.row]))
-        return cell
+        cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + self.viewModel.posterList[indexPath.row]))
         
+        return cell
     }
 }
 

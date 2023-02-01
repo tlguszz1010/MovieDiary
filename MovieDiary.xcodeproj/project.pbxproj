@@ -32,6 +32,8 @@
 		4E9F5C4F297299D400BE6733 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9F5C4E297299D400BE6733 /* SnapKit */; };
 		4E9F5C51297299E500BE6733 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F5C50297299E500BE6733 /* Repository.swift */; };
 		4E9F5C5329729A3F00BE6733 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F5C5229729A3F00BE6733 /* BaseURL.swift */; };
+		4EC023AA298A38AF00FCD2EC /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC023A9298A38AF00FCD2EC /* Dynamic.swift */; };
+		4EC023AC298A3C1100FCD2EC /* Extension + APIIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC023AB298A3C1100FCD2EC /* Extension + APIIndex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +61,8 @@
 		4E9F5C47297295F100BE6733 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4E9F5C50297299E500BE6733 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4E9F5C5229729A3F00BE6733 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
+		4EC023A9298A38AF00FCD2EC /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		4EC023AB298A3C1100FCD2EC /* Extension + APIIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + APIIndex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,7 @@
 		4E9F5C2629726F4F00BE6733 /* MovieDiary */ = {
 			isa = PBXGroup;
 			children = (
+				4EC023AD298A3C3200FCD2EC /* Utility */,
 				4E1D57AF2977B95300A7AB0E /* ViewModel */,
 				4E1D57AE2977B94600A7AB0E /* Service */,
 				4E1D57AD2977B93800A7AB0E /* Model */,
@@ -183,6 +188,23 @@
 				4E34ABB929729C9C001603ED /* APIKey.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		4EC023AD298A3C3200FCD2EC /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4EC023AE298A3C3F00FCD2EC /* Extension */,
+				4EC023A9298A38AF00FCD2EC /* Dynamic.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		4EC023AE298A3C3F00FCD2EC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4EC023AB298A3C1100FCD2EC /* Extension + APIIndex.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,9 +300,11 @@
 				4E34ABBA29729C9C001603ED /* APIKey.swift in Sources */,
 				4E9F5C2A29726F4F00BE6733 /* SceneDelegate.swift in Sources */,
 				4E9F5C3F29728FD400BE6733 /* HomeView.swift in Sources */,
+				4EC023AA298A38AF00FCD2EC /* Dynamic.swift in Sources */,
 				4E1D57B32977BA7600A7AB0E /* Model.swift in Sources */,
 				4E9F5C51297299E500BE6733 /* Repository.swift in Sources */,
 				4E9F5C4329728FF400BE6733 /* HomeViewController.swift in Sources */,
+				4EC023AC298A3C1100FCD2EC /* Extension + APIIndex.swift in Sources */,
 				4E96BC77297425A30011779B /* HomeCollectionHeaderView.swift in Sources */,
 				4E34ABBC2972A8F2001603ED /* BaseView.swift in Sources */,
 				4E9F5C5329729A3F00BE6733 /* BaseURL.swift in Sources */,

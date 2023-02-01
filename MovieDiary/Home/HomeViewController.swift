@@ -8,28 +8,6 @@
 import UIKit
 import Kingfisher
 
-@frozen enum APIIndex : Int, CaseIterable {
-    case popularIdx
-    case toprateIdx
-    case upcomingIdx
-    
-    var SectionTitle : String {
-        switch self {
-        case .popularIdx:
-            return "인기있는 영화"
-        case .toprateIdx:
-            return "평점 높은 영화"
-        case .upcomingIdx:
-            return "개봉 예정인 영화"
-            
-        }
-    }
-    
-    static var numberOfRows: Int {
-        return Self.allCases.count
-    }
-}
-
 class HomeViewController: UIViewController {
     let mainView = HomeView()
     let viewModel = HomeViewModel()
@@ -39,15 +17,11 @@ class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         view.backgroundColor = .white
-        mainView.movieCollectionView.delegate = self
-        mainView.movieCollectionView.dataSource = self
-        mainView.movieCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
-        mainView.movieCollectionView.register(HomeCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeCollectionHeaderView.identifier)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass") , style: .plain, target: self, action: #selector(searchButtonClicked))
-        self.navigationItem.rightBarButtonItem?.tintColor = .black
+        
+        // viewDidLoadTrigger에 값을 변경시킴으로써 VM에서 감지
+        viewModel.input.viewDidLoadTrigger.value = collectionViewUI()
+        viewModel.input.viewDidLoadTrigger.value = navigationUI()
     }
 
     @objc func searchButtonClicked() {
@@ -55,6 +29,17 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func collectionViewUI() {
+        mainView.movieCollectionView.delegate = self
+        mainView.movieCollectionView.dataSource = self
+        mainView.movieCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
+        mainView.movieCollectionView.register(HomeCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeCollectionHeaderView.identifier)
+    }
+    
+    func navigationUI() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass") , style: .plain, target: self, action: #selector(searchButtonClicked))
+        self.navigationItem.rightBarButtonItem?.tintColor = .black
+    }
 }
 
 extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -69,16 +54,15 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = mainView.movieCollectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
         guard let index = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
-        switch index {
-        case .popularIdx:
-            cell.url = BaseURL.popularURL + APIKey.TMDB
-        case .toprateIdx:
-            cell.url = BaseURL.topRatedURL + APIKey.TMDB
-        case .upcomingIdx:
-            cell.url = BaseURL.upcomingURL + APIKey.TMDB
-        }
-       
-        cell.requestAPI()
+//        switch index {
+//        case .popularIdx:
+//            cell.url = BaseURL.popularURL + APIKey.TMDB
+//        case .toprateIdx:
+//            cell.url = BaseURL.topRatedURL + APIKey.TMDB
+//        case .upcomingIdx:
+//            cell.url = BaseURL.upcomingURL + APIKey.TMDB
+//        }
+        
         return cell
     }
     
