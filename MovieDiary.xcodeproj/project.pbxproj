@@ -255,6 +255,7 @@
 				4E9F5C4A297299BF00BE6733 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4E9F5C4D297299D400BE6733 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E96BC7C297538D30011779B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4EFA6F92298B860000E97D15 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 4E9F5C2529726F4F00BE6733 /* Products */;
 			projectDirPath = "";
@@ -546,6 +547,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
+			};
+		};
+		4EFA6F92298B860000E97D15 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
