@@ -11,8 +11,6 @@ import Kingfisher
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
-    
-    let api = Repository()
     let viewModel = cellViewModel()
     
     let collectionView : UICollectionView
@@ -21,18 +19,12 @@ class HomeCollectionViewCell: UICollectionViewCell {
         let layout = HomeInsideFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(frame: frame)
-        viewModel.input.initTrigger.value = collectionViewUI()
+        collectionViewUI()
         viewModel.output.data.bind { [weak self] _ in // VM에서 output의 데이터가 바뀜을 감지하고 컬렉션 뷰 리로드
             self?.collectionView.reloadData()
         }
         self.backgroundColor = .systemPink
     }
-    
-    
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        posterList.removeAll()
-//    }
     
     func collectionViewUI() {
         collectionView.delegate = self

@@ -10,20 +10,9 @@ import Alamofire
 
 //MARK: 서버에서 받아온 데이터를 Struct 형태로 만들어서 전달. -> Service가 받게됨
 
-enum DecodeError: Error, LocalizedError {
-    case decodeErr
-    
-    var errorDescription: String? {
-        switch self {
-        case .decodeErr:
-            return "디코딩 안됨"
-        }
-    }
-}
-
-class Repository {
-    static let shared = Repository()
-    
+// Rxswift 사용해서 리팩토링 해보기
+class HomeAPIManager {
+    static let shared = HomeAPIManager()
     // Result 타입 적용
     func getHomeAPI(url: String, completion: @escaping (Result<ResponseData, Error>) -> Void) {
         let headers : HTTPHeaders = ["Content-Type" : "application/json;charset=utf-8"]
@@ -41,4 +30,8 @@ class Repository {
             }
         }
     }
+    
+    
+    // RX 리팩토링
+    
 }

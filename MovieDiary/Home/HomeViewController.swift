@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 class HomeViewController: UIViewController {
+    //MARK: View
     let mainView = HomeView()
     let viewModel = HomeViewModel()
     
@@ -18,18 +19,13 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        // viewDidLoadTrigger에 값을 변경시킴으로써 VM에서 감지
-        viewModel.input.viewDidLoadTrigger.value = collectionViewUI()
-        viewModel.input.viewDidLoadTrigger.value = navigationUI()
+        configure()
     }
+}
 
-    @objc func searchButtonClicked() {
-        let vc = SearchViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+extension HomeViewController {
     
-    func collectionViewUI() {
+    func collectionViewConfigure() {
         mainView.movieCollectionView.delegate = self
         mainView.movieCollectionView.dataSource = self
         mainView.movieCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
@@ -39,6 +35,16 @@ class HomeViewController: UIViewController {
     func navigationUI() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass") , style: .plain, target: self, action: #selector(searchButtonClicked))
         self.navigationItem.rightBarButtonItem?.tintColor = .black
+    }
+    
+    func configure() {
+        collectionViewConfigure()
+        navigationUI()
+    }
+    
+    @objc func searchButtonClicked() {
+        let vc = SearchViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -53,15 +59,15 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = mainView.movieCollectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        guard let index = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
-//        switch index {
-//        case .popularIdx:
-//            cell.url = BaseURL.popularURL + APIKey.TMDB
-//        case .toprateIdx:
-//            cell.url = BaseURL.topRatedURL + APIKey.TMDB
-//        case .upcomingIdx:
-//            cell.url = BaseURL.upcomingURL + APIKey.TMDB
-//        }
+        guard let section = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        switch section {
+        case .popularIdx:
+            cell.viewModel.input.initTrigger.value = BaseURL.popularURL + APIKey.TMDB
+        case .toprateIdx:
+            cell.viewModel.input.initTrigger.value = BaseURL.topRatedURL + APIKey.TMDB
+        case .upcomingIdx:
+            cell.viewModel.input.initTrigger.value = BaseURL.upcomingURL + APIKey.TMDB
+        }
         
         return cell
     }

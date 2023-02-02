@@ -16,11 +16,6 @@ public class Dynamic<T> {
         self.listener = listener
     }
     
-    public func bindAndFire(_ listener: Listener?) {
-        self.listener = listener
-        listener?(value)
-    }
-    
     // 값 바뀔 때마다 didSet으로 감지해서 listener 클로저 실행
     public var value: T {
         didSet {
