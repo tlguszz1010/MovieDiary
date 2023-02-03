@@ -9,7 +9,8 @@ import UIKit
 
 class HomeCollectionHeaderView: UICollectionReusableView {
     static let identifier = "HomeCollectionHeaderView"
-    
+    let headerViewModel = HomeCollectionViewHeaderViewModel()
+
     let headerLabel : UILabel = {
         let label = UILabel()
         label.textColor = .black

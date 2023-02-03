@@ -7,18 +7,18 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class cellViewModel: BaseViewModel {
     // View로부터 받은 요청
     struct Input {
-        let initTrigger: Observable<String> = Observable<String>.just("")
+        let initTrigger: PublishSubject<String> = PublishSubject()
     }
     
     
     // View에서 사용할 데이터
     struct Output {
-        let data: Dynamic<ResponseData?> = Dynamic(nil)
-        
+        let posterList: BehaviorRelay<[String]?> = BehaviorRelay(value: nil)
     }
     
     var input: Input
@@ -35,32 +35,14 @@ class cellViewModel: BaseViewModel {
     // View에서 input값이 바뀌었을 때 감지하는 메서드
     private func inputBinding() {
         self.input.initTrigger
-            .subscribe(onNext: { data in
-                
-            }, onError: { error in
-                
-            }, onCompleted: {
-                
-            }, onDisposed: {
-                
-            })
-            .disposed(by: disposeBag)
-        
-//        self.input.initTrigger.bind { [weak self] url in
-//            guard let url = url else { return }
-//            HomeAPIManager.shared.getHomeAPI(url: url) { completion in
-//                switch completion {
-//                case let .success(responseData):
-//                    // output의 값에 responseData를 넣어줌으로써 output 값 변경 -> View에서 감지
-//                    self?.output.data.value = responseData
-//                    for ele in responseData.results {
-//                        self?.posterList.append(ele.posterPath)
-//                    }
-//                case let .failure(error):
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
+            .subscribe(onNext: { [weak self] apiURL in
+                HomeAPIManager.shared.getHomeAPIWithRx(url: apiURL)
+                    .map { $0.results.map { $0.posterPath }}
+                    .subscribe(onNext: { [weak self] posterList in
+                        self?.output.posterList.accept(posterList)
+                    })
+                    .disposed(by: self!.disposeBag)
+            }).disposed(by: disposeBag)
     }
     
     

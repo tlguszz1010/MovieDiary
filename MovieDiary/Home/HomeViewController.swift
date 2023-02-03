@@ -7,11 +7,11 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 
 class HomeViewController: UIViewController {
     //MARK: View
     let mainView = HomeView()
-    let viewModel = HomeViewModel()
     
     override func loadView() {
         self.view = mainView
@@ -62,11 +62,11 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         guard let section = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
         switch section {
         case .popularIdx:
-            cell.viewModel.input.initTrigger.value = BaseURL.popularURL + APIKey.TMDB
+            cell.viewModel.input.initTrigger.onNext(BaseURL.popularURL + APIKey.TMDB)
         case .toprateIdx:
-            cell.viewModel.input.initTrigger.value = BaseURL.topRatedURL + APIKey.TMDB
+            cell.viewModel.input.initTrigger.onNext(BaseURL.topRatedURL + APIKey.TMDB)
         case .upcomingIdx:
-            cell.viewModel.input.initTrigger.value = BaseURL.upcomingURL + APIKey.TMDB
+            cell.viewModel.input.initTrigger.onNext(BaseURL.upcomingURL + APIKey.TMDB)
         }
         
         return cell
@@ -80,11 +80,17 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
             guard let index = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
             switch index {
             case .popularIdx:
-                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
+                header.headerViewModel.input?.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
+                header.headerLabel.text = header.headerViewModel.output?.titleLabel.value
+//                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             case .toprateIdx:
-                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
+                header.headerViewModel.input?.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
+                header.headerLabel.text = header.headerViewModel.output?.titleLabel.value
+//                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             case .upcomingIdx:
-                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
+                header.headerViewModel.input?.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
+                header.headerLabel.text = header.headerViewModel.output?.titleLabel.value
+//                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             }
             return header
         } else {
