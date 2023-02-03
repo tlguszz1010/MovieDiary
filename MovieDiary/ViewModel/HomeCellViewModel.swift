@@ -18,7 +18,7 @@ class cellViewModel: BaseViewInputOutput {
     
     // View에서 사용할 데이터
     struct Output {
-        let posterList: BehaviorRelay<[String]?> = BehaviorRelay(value: nil)
+        let posterList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
     }
     
     var input: Input
@@ -44,6 +44,8 @@ class cellViewModel: BaseViewInputOutput {
                     .disposed(by: self!.disposeBag)
             }).disposed(by: disposeBag)
     }
+    
+   
     
     
 }
