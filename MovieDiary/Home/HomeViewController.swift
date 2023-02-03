@@ -80,16 +80,19 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
             guard let index = APIIndex(rawValue: indexPath.section) else { return UICollectionViewCell() }
             switch index {
             case .popularIdx:
-                header.headerViewModel.input?.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
-                header.headerLabel.text = header.headerViewModel.output?.titleLabel.value
+                header.headerViewModel.input.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
+                header.headerLabel.text = header.headerViewModel.output.titleLabel.value
 //                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             case .toprateIdx:
-                header.headerViewModel.input?.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
-                header.headerLabel.text = header.headerViewModel.output?.titleLabel.value
+                header.headerViewModel.input.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
+                header.headerViewModel.output.titleLabel
+                    .subscribe(onNext: { titleText in
+                        header.headerLabel.text = titleText
+                    })
 //                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             case .upcomingIdx:
-                header.headerViewModel.input?.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
-                header.headerLabel.text = header.headerViewModel.output?.titleLabel.value
+                header.headerViewModel.input.initTrigger.onNext(APIIndex(rawValue: indexPath.section)?.SectionTitle)
+                header.headerLabel.text = header.headerViewModel.output.titleLabel.value
 //                header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.SectionTitle
             }
             return header

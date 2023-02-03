@@ -7,15 +7,7 @@
 
 import Foundation
 
-protocol BaseViewModel {
-    associatedtype Input
-    associatedtype Output
-    
-    var input: Input { get }
-    var output: Output { get }
-}
-
-class HomeViewModel: BaseViewModel { // 사실상 HomeViewModel은 필요없음
+class HomeViewModel: BaseViewInputOutput { // 사실상 HomeViewModel은 필요없음
     // View로부터 받은 요청
     struct Input {
         let viewDidLoadTrigger: Dynamic<Void?> = Dynamic(nil)
@@ -42,7 +34,9 @@ class HomeViewModel: BaseViewModel { // 사실상 HomeViewModel은 필요없음
     // View에서 input값이 바뀌었을 때 감지하는 메서드
     private func inputBinding() {
         self.input.viewDidLoadTrigger.bind {  _ in
+            
         }
     }
 }
+
 

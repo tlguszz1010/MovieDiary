@@ -60,6 +60,7 @@ extension HomeCollectionViewCell: UICollectionViewDelegate, UICollectionViewData
         return self.viewModel.output.posterList.value?.count ?? 0
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInsideCollectionViewCell.identifier, for: indexPath) as! HomeInsideCollectionViewCell
         cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + (self.viewModel.output.posterList.value?[indexPath.row])!))

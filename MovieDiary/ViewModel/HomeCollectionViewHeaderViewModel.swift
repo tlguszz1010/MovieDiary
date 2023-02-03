@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class HomeCollectionViewHeaderViewModel {
+class HomeCollectionViewHeaderViewModel: BaseViewInputOutput {
     struct Input {
         let initTrigger: PublishSubject<String?> = PublishSubject()
     }
@@ -18,8 +18,8 @@ class HomeCollectionViewHeaderViewModel {
         let titleLabel: BehaviorRelay<String?> = BehaviorRelay(value: "")
     }
     
-    var input: Input?
-    var output: Output?
+    var input: Input
+    var output: Output
     let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output()) {
@@ -30,9 +30,9 @@ class HomeCollectionViewHeaderViewModel {
     
     private func inputBinding() {
         // 헤더뷰에서 데이터 방출할때 
-        self.input?.initTrigger
+        self.input.initTrigger
             .subscribe(onNext: { [weak self] title in
-                self!.output?.titleLabel.accept(title!)
+                self!.output.titleLabel.accept(title!)
             })
             .disposed(by: disposeBag)
     }

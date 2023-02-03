@@ -23,7 +23,6 @@ import Foundation
             
         }
     }
-    
     static var numberOfRows: Int {
         return Self.allCases.count
     }
