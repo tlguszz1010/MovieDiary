@@ -38,7 +38,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     func collectionViewUI() {
         collectionView.delegate = self
-        collectionView.dataSource = nil
         collectionView.register(HomeInsideCollectionViewCell.self, forCellWithReuseIdentifier: HomeInsideCollectionViewCell.identifier)
         self.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
@@ -62,24 +61,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     
     
-}
-
-extension HomeCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // BehaviorRelay로 posterList를 초기화 -> 값을 가져다 쓰려면 .value를 사용해야됨
-        return self.viewModel.output.posterList.value.count
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInsideCollectionViewCell.identifier, for: indexPath) as! HomeInsideCollectionViewCell
-//        cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + (self.viewModel.output.posterList.value?[indexPath.row])!))
-
-        return cell
-    }
 }
 
 extension HomeCollectionViewCell: UICollectionViewDelegateFlowLayout {
