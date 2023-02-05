@@ -50,6 +50,7 @@ extension HomeViewController {
 
 extension HomeViewController :  UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // Section이 여러개인 경우는 rx.items보다 RxDataSource로 접근
         return APIIndex.numberOfRows
     }
     

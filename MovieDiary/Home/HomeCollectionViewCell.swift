@@ -25,13 +25,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         collectionViewUI()
         dataSource()
-        viewModel.output.posterList
-            .filter { $0 != [] }// BehaviorRelay는 bindAndFire라고 생각하면 됨
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in // VM에서 output의 데이터가 바뀜을 감지하고 컬렉션 뷰 리로드
-                self?.collectionView.reloadData()
-            })
-            .disposed(by: disposeBag)
         
         self.backgroundColor = .systemPink
     }
@@ -46,6 +39,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func dataSource() {
+        // idx - row, ele - ele, cell - cell
         viewModel.output.posterList
             .bind(to: collectionView.rx.items(cellIdentifier: HomeInsideCollectionViewCell.identifier, cellType: HomeInsideCollectionViewCell.self)) { idx, ele, cell in
                 cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + ele))
@@ -56,10 +50,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
-    
     
 }
 

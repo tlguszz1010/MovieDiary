@@ -24,7 +24,7 @@ class cellViewModel: BaseViewInputOutput {
     var input: Input
     var output: Output
     var posterList: [String] = []
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output()) {
         self.input = input

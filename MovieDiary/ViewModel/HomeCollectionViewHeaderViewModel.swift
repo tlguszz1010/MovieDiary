@@ -20,7 +20,7 @@ class HomeCollectionViewHeaderViewModel: BaseViewInputOutput {
     
     var input: Input
     var output: Output
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output()) {
         self.input = input

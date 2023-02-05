@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchViewController: UIViewController {
-    let api = HomeAPIManager()
+    let viewModel = SearchViewModel()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +23,10 @@ class SearchViewController: UIViewController {
     func SearchBar() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "영화를 검색해주세요"
+        searchController.searchBar.rx.text
+            .subscribe(onNext: {[weak self] _ in
+                self!.viewModel.input.searchTrigger.onNext(searchController.searchBar.text!)
+            })
         searchController.obscuresBackgroundDuringPresentation = false
         self.navigationItem.searchController = searchController
     }
