@@ -27,7 +27,6 @@ class HomeInsideCollectionViewCell: UICollectionViewCell {
     
     func setUpView() {
         contentView.addSubview(image)
-        self.backgroundColor = .systemMint
         image.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

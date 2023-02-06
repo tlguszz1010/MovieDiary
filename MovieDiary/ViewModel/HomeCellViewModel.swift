@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class cellViewModel: BaseViewInputOutput {
+class cellViewModel: BaseViewModel {
     // View로부터 받은 요청
     struct Input {
         let initTrigger: PublishSubject<String> = PublishSubject()
@@ -23,7 +23,6 @@ class cellViewModel: BaseViewInputOutput {
     
     var input: Input
     var output: Output
-    var posterList: [String] = []
     private let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output()) {
