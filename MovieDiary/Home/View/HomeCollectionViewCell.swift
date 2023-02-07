@@ -13,9 +13,9 @@ import RxCocoa
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
-    let viewModel = cellViewModel()
+    let viewModel = CellViewModel()
     let disposeBag = DisposeBag()
-    let collectionView : UICollectionView
+    let collectionView: UICollectionView
     
     override init(frame: CGRect) {
         
@@ -41,7 +41,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     func dataSource() {
         // idx - row, ele - ele, cell - cell
         viewModel.output.posterList
-            .bind(to: collectionView.rx.items(cellIdentifier: HomeInsideCollectionViewCell.identifier, cellType: HomeInsideCollectionViewCell.self)) { idx, ele, cell in
+            .bind(to: collectionView.rx.items(cellIdentifier: HomeInsideCollectionViewCell.identifier, cellType: HomeInsideCollectionViewCell.self)) { _, ele, cell in
                 cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + ele))
             }
             .disposed(by: disposeBag)

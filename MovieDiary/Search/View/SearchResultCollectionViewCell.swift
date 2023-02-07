@@ -84,7 +84,5 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-20)
         }
         
-        
     }
 }
-

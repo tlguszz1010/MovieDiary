@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeInsideFlowLayout : UICollectionViewFlowLayout {
+class HomeInsideFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         scrollDirection = .horizontal

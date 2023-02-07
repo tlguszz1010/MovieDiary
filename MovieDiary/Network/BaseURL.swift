@@ -13,4 +13,3 @@ enum BaseURL {
     static let upcomingURL = "https://api.themoviedb.org/3/movie/upcoming?api_key="
     static let baseImageURL = "https://image.tmdb.org/t/p/w500"
 }
-

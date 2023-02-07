@@ -7,12 +7,12 @@
 
 import Foundation
 
-@frozen enum APIIndex : Int, CaseIterable {
+@frozen enum APIIndex: Int, CaseIterable {
     case popularIdx
     case toprateIdx
     case upcomingIdx
     
-    var SectionTitle : String {
+    var sectionTitle: String {
         switch self {
         case .popularIdx:
             return "인기있는 영화"

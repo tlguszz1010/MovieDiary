@@ -11,7 +11,7 @@ import SnapKit
 class HomeInsideCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "HomeInsideCollectionViewCell"
-    let image : UIImageView = {
+    let image: UIImageView = {
         let view = UIImageView()
         return view
     }()

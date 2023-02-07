@@ -11,14 +11,13 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     static let identifier = "HomeCollectionHeaderView"
     let headerViewModel = HomeCollectionViewHeaderViewModel()
 
-    let headerLabel : UILabel = {
+    let headerLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = .systemFont(ofSize: 30)
         return label
     }()
     
-
     func configureHeaderView() {
         self.addSubview(headerLabel)
         headerLabel.snp.makeConstraints { make in

@@ -18,9 +18,8 @@ class HomeViewModel: BaseViewModel { // 사실상 HomeViewModel은 필요없음
     }
     
     // Input, Output 타입의 프로퍼티 선언 -> 초기화 해줘야한다.
-    var input : Input
+    var input: Input
     var output: Output
-    
     
     // 초기화
     init(input: Input = Input(), output: Output = Output()) {
@@ -29,11 +28,8 @@ class HomeViewModel: BaseViewModel { // 사실상 HomeViewModel은 필요없음
         inputBinding()
     }
     
-    
     // View에서 input값이 바뀌었을 때 감지하는 메서드
     private func inputBinding() {
         
     }
 }
-
-

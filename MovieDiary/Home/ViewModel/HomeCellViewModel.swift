@@ -9,18 +9,15 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class cellViewModel: BaseViewModel {
+class CellViewModel: BaseViewModel {
     // View로부터 받은 요청
     struct Input {
         let initTrigger: PublishSubject<String> = PublishSubject()
     }
-    
-    
     // View에서 사용할 데이터
     struct Output {
         let posterList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
     }
-    
     var input: Input
     var output: Output
     private let disposeBag = DisposeBag()
@@ -30,7 +27,6 @@ class cellViewModel: BaseViewModel {
         self.output = output
         inputBinding()
     }
-    
     // View에서 input값이 바뀌었을 때 감지하는 메서드
     private func inputBinding() {
         self.input.initTrigger
@@ -43,8 +39,4 @@ class cellViewModel: BaseViewModel {
                     .disposed(by: self!.disposeBag)
             }).disposed(by: disposeBag)
     }
-    
-   
-    
-    
 }

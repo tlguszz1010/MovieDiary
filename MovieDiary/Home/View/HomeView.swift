@@ -9,11 +9,10 @@ import UIKit
 import SnapKit
 
 class HomeView: BaseView {
-    let movieCollectionView : UICollectionView = {
+    let movieCollectionView: UICollectionView = {
         let view = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
         collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        collection.backgroundColor = .white
         return collection
     }()
     
@@ -28,5 +27,3 @@ class HomeView: BaseView {
         }
     }
 }
-
-

@@ -20,4 +20,3 @@ struct ResponseData: Codable {
         case totalResults = "total_results"
     }
 }
-

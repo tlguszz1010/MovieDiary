@@ -13,23 +13,19 @@ class SearchViewController: UIViewController {
     let viewModel = SearchViewModel()
     let mainView = SearchView()
     let disposeBag = DisposeBag()
-    
     override func loadView() {
         self.view = mainView
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureUI()
     }
-    
     func configureUI() {
-        SearchBar()
+        searchBar()
         configureCell()
     }
-    
-    func SearchBar() {
+    func searchBar() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "영화를 검색해주세요"
         searchController.searchBar.rx.textDidEndEditing // -> text 입력이 끝났을 때 (Enter 눌렀을 때)
@@ -41,7 +37,6 @@ class SearchViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         self.navigationItem.searchController = searchController
     }
-    
     func configureCell() {
         mainView.collectionView.delegate = self
         mainView.collectionView.dataSource = self
@@ -58,15 +53,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         // 서치에 해당하는 영화의 갯수만큼 item 가지고 있어야됨 -> 서치에 해당하는 item을 빈 List에 넣어줘야겠지? -> 그 List의 Count만큼 반환
         return 5
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = mainView.collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
         cell.totalView.backgroundColor = .blue
         return cell
     }
-    
-    
 }
-
-
-

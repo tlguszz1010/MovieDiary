@@ -28,13 +28,13 @@ class SearchViewModel: BaseViewModel {
         inputSubcribe()
     }
     
-    
     // SearchView에서 viewDidLoad가 동작될 때 실행
     private func inputSubcribe() {
         self.input.searchTrigger
         // searchTrigger에서 값을 emit할 때 ->
         // 받은 text를 통해 -> API 호출
             .subscribe(onNext: {[weak self] text in
+                // API 호출 부분
                 guard let text = text else { return }
                 print(text)
             })
