@@ -19,7 +19,7 @@ class HomeAPIManager {
     
     func getHomeAPIWithRx(url: String) -> Observable<ResponseData> {
         return Observable.create { emitter in
-            AF.request(url, method: .get, headers: self.headers).validate().validate(statusCode: 200...500).responseDecodable(of: ResponseData.self ) { response in
+            AF.request(url, method: .get, headers: self.headers).validate(statusCode: 200...500).responseDecodable(of: ResponseData.self ) { response in
                 switch response.result {
                 case let .success(value):
                     emitter.onNext(value)

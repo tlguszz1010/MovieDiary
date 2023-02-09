@@ -12,7 +12,7 @@ import RxCocoa
 class CellViewModel: BaseViewModel {
     // View로부터 받은 요청
     struct Input {
-        let initTrigger: PublishSubject<String> = PublishSubject()
+        let initTrigger: PublishSubject<Int> = PublishSubject()
     }
     // View에서 사용할 데이터
     struct Output {
@@ -28,10 +28,11 @@ class CellViewModel: BaseViewModel {
         inputBinding()
     }
     // View에서 input값이 바뀌었을 때 감지하는 메서드
+    // 뷰모델 -> Model(BaseURL + EndPoint)을 가지고 있어야함
     private func inputBinding() {
         self.input.initTrigger
-            .subscribe(onNext: { [weak self] apiURL in
-                HomeAPIManager.shared.getHomeAPIWithRx(url: apiURL)
+            .subscribe(onNext: { [weak self] sec in
+                HomeAPIManager.shared.getHomeAPIWithRx(url: APIIndex(rawValue: sec)!.sectionURL)
                     .map { $0.results.map { $0.posterPath }}
                     .subscribe(onNext: { [weak self] posterList in
                         self?.output.posterList.accept(posterList)

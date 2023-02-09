@@ -20,9 +20,20 @@ import Foundation
             return "평점 높은 영화"
         case .upcomingIdx:
             return "개봉 예정인 영화"
-            
         }
     }
+    
+    var sectionURL: String {
+        switch self {
+        case .popularIdx:
+            return BaseURL.popularURL + APIKey.TMDB
+        case .toprateIdx:
+            return BaseURL.topRatedURL + APIKey.TMDB
+        case .upcomingIdx:
+            return BaseURL.upcomingURL + APIKey.TMDB
+        }
+    }
+    
     static var numberOfRows: Int {
         return Self.allCases.count
     }

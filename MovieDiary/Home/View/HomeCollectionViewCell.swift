@@ -39,7 +39,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func dataSource() {
-        // idx - row, ele - ele, cell - cell
+        // idx - row, ele - element, cell - cell
         viewModel.output.posterList
             .bind(to: collectionView.rx.items(cellIdentifier: HomeInsideCollectionViewCell.identifier, cellType: HomeInsideCollectionViewCell.self)) { _, ele, cell in
                 cell.image.kf.setImage(with: URL(string: BaseURL.baseImageURL + ele))
