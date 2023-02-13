@@ -33,6 +33,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "영화 제목"
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     

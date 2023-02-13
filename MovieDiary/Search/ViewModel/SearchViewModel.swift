@@ -18,6 +18,7 @@ class SearchViewModel: BaseViewModel {
         var posterList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
         var titleList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
         var releaseDateList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+        var dataList: BehaviorRelay<[ResultModel]> = BehaviorRelay(value: [])
     }
     
     var input: Input
@@ -36,18 +37,18 @@ class SearchViewModel: BaseViewModel {
         // searchTrigger에서 값을 emit할 때 ->
         // 받은 text를 통해 -> API 호출
             .subscribe(onNext: {[weak self] text in
+                guard let disposeBag = self?.disposeBag else { return }
                 // API 호출 부분
                 guard let text = text else { return }
                 let beforeEncodingURL = BaseURL.searchURL + APIKey.TMDB + EndPoint.endPoint + EndPoint.query + text
                 guard let afterEncodingURL = beforeEncodingURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-                print(afterEncodingURL)
                 HomeAPIManager.shared.getHomeAPIWithRx(url: afterEncodingURL)
-                    .map { $0.results.map { $0.originalTitle }}
-                    .subscribe(onNext: { [weak self] titleList in
-                        self?.output.titleList.accept(titleList)
-                        print(titleList)
+                    .map { $0.results.map { $0 }}
+                    .subscribe(onNext: { [weak self] dataList in
+                        self?.output.dataList.accept(dataList)
                     })
-                    .disposed(by: self!.disposeBag)
+                    .disposed(by: disposeBag)
+               
             })
             .disposed(by: disposeBag)
     }
