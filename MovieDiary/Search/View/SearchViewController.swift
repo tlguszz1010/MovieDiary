@@ -23,6 +23,7 @@ class SearchViewController: UIViewController, UICollectionViewDelegate {
         searchBar()
         configureCell()
         bindDataSource()
+        didSelected()
     }
     
     func configureCell() {
@@ -36,6 +37,16 @@ class SearchViewController: UIViewController, UICollectionViewDelegate {
                 cell.releaseDateLabel.text = ele.releaseDate
                 cell.titleLabel.text = ele.title
             }
+            .disposed(by: disposeBag)
+    }
+    
+    func didSelected() {
+        mainView.collectionView.rx
+            .itemSelected
+            .subscribe(onNext: { indexPath in
+                let detailVC = SearchDetailViewController()
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            })
             .disposed(by: disposeBag)
     }
     
