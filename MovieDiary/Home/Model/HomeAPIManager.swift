@@ -31,4 +31,20 @@ class HomeAPIManager {
             return Disposables.create()
         }
     }
+    
+    func getDetailMovieAPI(id: Int) -> Observable<ResponseDetailData> {
+        let url = BaseURL.detailMovieURL + "\(id)?" + APIKey.TMDB + EndPoint.language
+        return Observable.create { emitter in
+            AF.request(url, method: .get, headers: self.headers).validate(statusCode: 200...500).responseDecodable(of: ResponseDetailData.self) { response in
+                switch response.result {
+                case let .success(value):
+                    emitter.onNext(value)
+                    emitter.onCompleted()
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create ()
+        }
+    }
 }

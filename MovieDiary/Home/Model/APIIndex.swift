@@ -26,11 +26,11 @@ import Foundation
     var sectionURL: String {
         switch self {
         case .popularIdx:
-            return BaseURL.popularURL + APIKey.TMDB + EndPoint.endPoint
+            return BaseURL.popularURL + APIKey.TMDB + EndPoint.language
         case .toprateIdx:
-            return BaseURL.topRatedURL + APIKey.TMDB + EndPoint.endPoint
+            return BaseURL.topRatedURL + APIKey.TMDB + EndPoint.language
         case .upcomingIdx:
-            return BaseURL.upcomingURL + APIKey.TMDB + EndPoint.endPoint
+            return BaseURL.upcomingURL + APIKey.TMDB + EndPoint.language
         }
     }
     

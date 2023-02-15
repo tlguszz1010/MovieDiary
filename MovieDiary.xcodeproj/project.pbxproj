@@ -12,6 +12,7 @@
 		4E34ABBA29729C9C001603ED /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34ABB929729C9C001603ED /* APIKey.swift */; };
 		4E34ABBC2972A8F2001603ED /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34ABBB2972A8F2001603ED /* BaseView.swift */; };
 		4E34ABBE2972ABDF001603ED /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34ABBD2972ABDF001603ED /* HomeCollectionViewCell.swift */; };
+		4E5C46E0299CAD6B00F7912F /* SearchDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5C46DF299CAD6B00F7912F /* SearchDetailModel.swift */; };
 		4E96BC77297425A30011779B /* HomeCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E96BC76297425A30011779B /* HomeCollectionHeaderView.swift */; };
 		4E96BC7929742F150011779B /* HomeInsideFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E96BC7829742F150011779B /* HomeInsideFlowLayout.swift */; };
 		4E96BC7B297431F70011779B /* HomeInsideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E96BC7A297431F70011779B /* HomeInsideCollectionViewCell.swift */; };
@@ -30,6 +31,7 @@
 		4E9F5C4F297299D400BE6733 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9F5C4E297299D400BE6733 /* SnapKit */; };
 		4E9F5C51297299E500BE6733 /* HomeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F5C50297299E500BE6733 /* HomeAPIManager.swift */; };
 		4E9F5C5329729A3F00BE6733 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F5C5229729A3F00BE6733 /* BaseURL.swift */; };
+		4EA8D6B1299B851C00AD9515 /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8D6B0299B851C00AD9515 /* SearchDetailViewModel.swift */; };
 		4EB74B1B2990CC0600911D39 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB74B1A2990CC0600911D39 /* SearchResultCollectionViewCell.swift */; };
 		4EB74B232992319C00911D39 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4EB74B222992319C00911D39 /* .swiftlint.yml */; };
 		4EC023AC298A3C1100FCD2EC /* APIIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC023AB298A3C1100FCD2EC /* APIIndex.swift */; };
@@ -53,6 +55,7 @@
 		4E34ABB929729C9C001603ED /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		4E34ABBB2972A8F2001603ED /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		4E34ABBD2972ABDF001603ED /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E5C46DF299CAD6B00F7912F /* SearchDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailModel.swift; sourceTree = "<group>"; };
 		4E96BC76297425A30011779B /* HomeCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionHeaderView.swift; sourceTree = "<group>"; };
 		4E96BC7829742F150011779B /* HomeInsideFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInsideFlowLayout.swift; sourceTree = "<group>"; };
 		4E96BC7A297431F70011779B /* HomeInsideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInsideCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		4E9F5C47297295F100BE6733 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4E9F5C50297299E500BE6733 /* HomeAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPIManager.swift; sourceTree = "<group>"; };
 		4E9F5C5229729A3F00BE6733 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
+		4EA8D6B0299B851C00AD9515 /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB74B1A2990CC0600911D39 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EB74B222992319C00911D39 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		4EC023AB298A3C1100FCD2EC /* APIIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIndex.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 		4EB74B1F299208BF00911D39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E5C46DF299CAD6B00F7912F /* SearchDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				4EE037A8298F8CA300D6B503 /* SearchViewModel.swift */,
+				4EA8D6B0299B851C00AD9515 /* SearchDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 				4EEA13B0299A44A900D57FF4 /* CastCollectionViewCell.swift in Sources */,
 				4E9F5C46297295E600BE6733 /* SearchViewController.swift in Sources */,
 				4E9F5C4129728FDE00BE6733 /* HomeViewModel.swift in Sources */,
+				4EA8D6B1299B851C00AD9515 /* SearchDetailViewModel.swift in Sources */,
 				4E96BC7B297431F70011779B /* HomeInsideCollectionViewCell.swift in Sources */,
 				4E9F5C2829726F4F00BE6733 /* AppDelegate.swift in Sources */,
 				4E9F5C48297295F100BE6733 /* SearchView.swift in Sources */,
@@ -373,6 +380,7 @@
 				4E9F5C51297299E500BE6733 /* HomeAPIManager.swift in Sources */,
 				4E9F5C4329728FF400BE6733 /* HomeViewController.swift in Sources */,
 				4EE02AFC298CDFD000D44658 /* HomeCollectionViewHeaderViewModel.swift in Sources */,
+				4E5C46E0299CAD6B00F7912F /* SearchDetailModel.swift in Sources */,
 				4EC023AC298A3C1100FCD2EC /* APIIndex.swift in Sources */,
 				4EE037A9298F8CA300D6B503 /* SearchViewModel.swift in Sources */,
 				4E96BC77297425A30011779B /* HomeCollectionHeaderView.swift in Sources */,

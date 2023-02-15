@@ -12,13 +12,13 @@ class SearchDetailView: BaseView {
     
     let posterImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .black
         return view
     }()
     
     let overViewLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .systemMint
+        label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -57,7 +57,7 @@ class SearchDetailView: BaseView {
         
         overViewLabel.snp.makeConstraints { make in
             make.top.equalTo(posterImageView.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.bottom.equalTo(castLabel.snp.top).offset(-10)
         }
         

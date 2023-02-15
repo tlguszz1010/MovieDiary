@@ -79,7 +79,6 @@ extension HomeViewController: UICollectionViewDataSource {
             switch index {
             case .popularIdx:
                 // sectionTitle은 뷰에서 보여줄 데이터라서 뷰모델에 있어야함
-                
                 header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.sectionTitle
             case .toprateIdx:
                 header.headerLabel.text = APIIndex(rawValue: indexPath.section)?.sectionTitle

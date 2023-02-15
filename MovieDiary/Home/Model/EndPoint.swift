@@ -8,6 +8,6 @@
 import Foundation
 
 enum EndPoint {
-    static let endPoint = "&language=ko-KR"
+    static let language = "&language=ko-KR"
     static let query = "&query="
 }

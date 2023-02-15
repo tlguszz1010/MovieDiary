@@ -14,6 +14,8 @@ class SearchViewController: UIViewController, UICollectionViewDelegate {
     let viewModel = SearchViewModel()
     let mainView = SearchView()
     let disposeBag = DisposeBag()
+    var data: ResponseDetailData?
+    
     override func loadView() {
         self.view = mainView
     }
@@ -42,12 +44,17 @@ class SearchViewController: UIViewController, UICollectionViewDelegate {
     
     func didSelected() {
         mainView.collectionView.rx
-            .itemSelected
-            .subscribe(onNext: { indexPath in
+            .modelSelected(ResultModel.self)
+            .map { $0.id }
+            .subscribe(onNext: {[weak self] id in
                 let detailVC = SearchDetailViewController()
-                self.navigationController?.pushViewController(detailVC, animated: true)
+                detailVC.viewModel.input.viewDidLoadTrigger.accept(id)
+                self?.navigationController?.pushViewController(detailVC, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
+        self.mainView.collectionView.rx.setDelegate(self)
+            .disposed(by: self.disposeBag)
+     
     }
     
 }
@@ -73,5 +80,6 @@ extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate 
         searchController.obscuresBackgroundDuringPresentation = false
         self.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
+        self.navigationItem.hidesSearchBarWhenScrolling = false
     }
 }

@@ -15,9 +15,6 @@ class SearchViewModel: BaseViewModel {
     }
     
     struct Output {
-        var posterList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-        var titleList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-        var releaseDateList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
         var dataList: BehaviorRelay<[ResultModel]> = BehaviorRelay(value: [])
     }
     
@@ -40,7 +37,7 @@ class SearchViewModel: BaseViewModel {
                 guard let disposeBag = self?.disposeBag else { return }
                 // API 호출 부분
                 guard let text = text else { return }
-                let beforeEncodingURL = BaseURL.searchURL + APIKey.TMDB + EndPoint.endPoint + EndPoint.query + text
+                let beforeEncodingURL = BaseURL.searchURL + APIKey.TMDB + EndPoint.language + EndPoint.query + text
                 guard let afterEncodingURL = beforeEncodingURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
                 HomeAPIManager.shared.getHomeAPIWithRx(url: afterEncodingURL)
                     .map { $0.results.map { $0 }}
