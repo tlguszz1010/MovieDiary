@@ -51,6 +51,13 @@ class SearchDetailViewController: UIViewController {
                 cell.castName.text = ele.name
             }
             .disposed(by: disposeBag)
+        
+        mainView.diaryButton.rx.tap
+            .bind {
+                let writeVC = WriteViewController()
+                self.navigationController?.pushViewController(writeVC, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 extension SearchDetailViewController: UICollectionViewDelegateFlowLayout {

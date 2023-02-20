@@ -15,7 +15,9 @@ class BaseView: UIView {
         makeConstraints()
     }
     
-    func makeConfigures() {}
+    func makeConfigures() {
+//        self.backgroundColor = .white
+    }
     func makeConstraints() {}
     
     @available(*, unavailable)

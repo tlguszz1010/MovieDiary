@@ -28,14 +28,10 @@ class SearchViewModel: BaseViewModel {
         inputSubcribe()
     }
     
-    // SearchView에서 viewDidLoad가 동작될 때 실행
     private func inputSubcribe() {
         self.input.searchTrigger
-        // searchTrigger에서 값을 emit할 때 ->
-        // 받은 text를 통해 -> API 호출
             .subscribe(onNext: {[weak self] text in
                 guard let disposeBag = self?.disposeBag else { return }
-                // API 호출 부분
                 guard let text = text else { return }
                 let beforeEncodingURL = BaseURL.searchURL + APIKey.TMDB + EndPoint.language + EndPoint.query + text
                 guard let afterEncodingURL = beforeEncodingURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
@@ -45,7 +41,6 @@ class SearchViewModel: BaseViewModel {
                         self?.output.dataList.accept(dataList)
                     })
                     .disposed(by: disposeBag)
-               
             })
             .disposed(by: disposeBag)
     }
