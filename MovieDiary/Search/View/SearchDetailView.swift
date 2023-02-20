@@ -66,7 +66,10 @@ class SearchDetailView: BaseView {
     func buttonConfigureUI() {
         var bookMarkconfig = UIButton.Configuration.filled()
         bookMarkconfig.image = UIImage(systemName: "star.fill")
-        bookMarkconfig.baseForegroundColor = UIColor.white
+        bookMarkconfig.baseForegroundColor = UIColor.black
+        bookMarkconfig.baseBackgroundColor = UIColor.white
+        bookMarkconfig.background.strokeColor = .black
+        bookMarkconfig.background.strokeWidth = 1
         bookMarkconfig.background.cornerRadius = 5
         bookMarkconfig.imagePlacement = .trailing
         bookMarkconfig.imagePadding = 5
@@ -80,9 +83,13 @@ class SearchDetailView: BaseView {
         diaryTitle.font = UIFont.systemFont(ofSize: 15)
         diaryconfig.imagePlacement = .trailing
         diaryconfig.imagePadding = 5
+        diaryconfig.baseBackgroundColor = UIColor.white
         diaryconfig.attributedTitle = diaryTitle
+        diaryconfig.background.strokeColor = .black
+        diaryconfig.background.strokeWidth = 1
+        diaryconfig.background.cornerRadius = 5
         diaryconfig.image = UIImage(systemName: "pencil")
-        diaryconfig.baseForegroundColor = UIColor.white
+        diaryconfig.baseForegroundColor = UIColor.black
         diaryButton.configuration = diaryconfig
     }
     

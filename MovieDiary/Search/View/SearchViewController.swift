@@ -26,13 +26,18 @@ class SearchViewController: UIViewController {
         configureCell()
         bindDataSource()
         didSelected()
+        navigationUI()
     }
     
-    func configureCell() {
+    private func navigationUI() {
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+    }
+    
+    private func configureCell() {
         mainView.collectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.identifier)
     }
     
-    func bindDataSource() {
+    private func bindDataSource() {
         viewModel.output.dataList
             .bind(to: mainView.collectionView.rx.items(cellIdentifier: SearchResultCollectionViewCell.identifier, cellType: SearchResultCollectionViewCell.self)) { _, ele, cell in
                 cell.posterImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + ele.posterPath))
@@ -42,7 +47,7 @@ class SearchViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func didSelected() {
+    private func didSelected() {
         mainView.collectionView.rx
             .modelSelected(ResultModel.self)
             .map { $0.id }

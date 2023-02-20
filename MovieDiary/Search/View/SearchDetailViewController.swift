@@ -24,8 +24,11 @@ class SearchDetailViewController: UIViewController {
         super.viewDidLoad()
         configureCell()
         dataSource()
+        navigationUI()
     }
-    
+    private func navigationUI() {
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+    }
     private func configureCell() {
         mainView.castCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
