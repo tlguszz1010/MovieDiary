@@ -14,4 +14,5 @@ enum BaseURL {
     static let baseImageURL = "https://image.tmdb.org/t/p/w500"
     static let searchURL = "https://api.themoviedb.org/3/search/movie?"
     static let detailMovieURL = "https://api.themoviedb.org/3/movie/"
+    static let creditsURL = "https://api.themoviedb.org/3/movie/"
 }

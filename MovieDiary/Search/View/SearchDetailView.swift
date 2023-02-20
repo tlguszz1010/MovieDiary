@@ -9,6 +9,15 @@ import UIKit
 import SnapKit
 
 class SearchDetailView: BaseView {
+    let contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        return view
+    }()
     
     let posterImageView: UIImageView = {
         let view = UIImageView()
@@ -33,34 +42,41 @@ class SearchDetailView: BaseView {
     
     let castCollectionView: UICollectionView = {
         let view = UICollectionViewFlowLayout()
+        view.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
         collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        collection.backgroundColor = .green
         return collection
     }()
     
-    
-    
     override func makeConfigures() {
         self.backgroundColor = .white
+        self.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         [posterImageView, overViewLabel, castLabel, castCollectionView].forEach {
-            self.addSubview($0)
+            contentView.addSubview($0)
         }
     }
     
     override func makeConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.equalToSuperview()
+            make.width.equalTo(scrollView.snp.width)
+        }
         posterImageView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide)
+            make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
         }
         
         overViewLabel.snp.makeConstraints { make in
-            make.top.equalTo(posterImageView.snp.bottom).offset(10)
+            make.top.equalTo(posterImageView.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalTo(castLabel.snp.top).offset(-10)
+            make.bottom.equalTo(castLabel.snp.top).offset(-20)
         }
-        
         
         castLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
@@ -72,7 +88,7 @@ class SearchDetailView: BaseView {
         castCollectionView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.2)
+            make.height.equalToSuperview().multipliedBy(0.3)
         }
     }
 }

@@ -23,6 +23,16 @@ class SearchDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCell()
+        dataSource()
+    }
+    
+    private func configureCell() {
+        mainView.castCollectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        mainView.castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: CastCollectionViewCell.identifier)
+    }
+    
+    private func dataSource() {
         viewModel.output.idData
             .filter {$0 != nil}
             .subscribe(onNext: {[weak self] data in
@@ -31,30 +41,20 @@ class SearchDetailViewController: UIViewController {
                 self?.mainView.overViewLabel.text = data.overview
             })
             .disposed(by: disposeBag)
-    }
-    
-    func configureCell() {
-        mainView.castCollectionView.delegate = self
-        mainView.castCollectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.identifier)
-        mainView.castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: CastCollectionViewCell.identifier)
-    }
-}
-
-extension SearchDetailViewController: UICollectionViewDelegate {
-    
-}
-
-extension SearchDetailViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = mainView.castCollectionView.dequeueReusableCell(withReuseIdentifier: CastCollectionViewCell.identifier, for: indexPath) as? CastCollectionViewCell else { return UICollectionViewCell() }
         
-        return cell
+        viewModel.output.cast
+            .bind(to: mainView.castCollectionView.rx.items(cellIdentifier: CastCollectionViewCell.identifier, cellType: CastCollectionViewCell.self)) { _, ele, cell in
+                cell.castImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + (ele.profilePath ?? "")))
+                if ele.profilePath == nil {
+                    cell.castImage.image = UIImage(named: "blankPerson")
+                }
+                cell.castName.text = ele.name
+            }
+            .disposed(by: disposeBag)
+    }
+}
+extension SearchDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: view.frame.size.width / 3, height: 200)
     }
 }

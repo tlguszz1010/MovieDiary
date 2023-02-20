@@ -44,7 +44,24 @@ class HomeAPIManager {
                     emitter.onError(error)
                 }
             }
-            return Disposables.create ()
+            return Disposables.create()
+        }
+    }
+    
+    func getCreidts(id: Int) -> Observable<CreditsResponseData> {
+        print(id)
+        let url = BaseURL.creditsURL + "\(id)" + "/credits?" + APIKey.TMDB + EndPoint.language
+        return Observable.create { emitter in
+            AF.request(url, method: .get, headers: self.headers).validate(statusCode: 200...500).responseDecodable(of: CreditsResponseData.self) { response in
+                switch response.result {
+                case let .success(value):
+                    emitter.onNext(value)
+                    emitter.onCompleted()
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
         }
     }
 }

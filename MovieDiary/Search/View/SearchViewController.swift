@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-class SearchViewController: UIViewController, UICollectionViewDelegate {
+class SearchViewController: UIViewController {
     let viewModel = SearchViewModel()
     let mainView = SearchView()
     let disposeBag = DisposeBag()
@@ -48,7 +48,7 @@ class SearchViewController: UIViewController, UICollectionViewDelegate {
             .map { $0.id }
             .subscribe(onNext: {[weak self] id in
                 let detailVC = SearchDetailViewController()
-                detailVC.viewModel.input.viewDidLoadTrigger.accept(id)
+                detailVC.viewModel.input.viewDidLoadTrigger.onNext(id)
                 self?.navigationController?.pushViewController(detailVC, animated: true)
             })
             .disposed(by: self.disposeBag)
@@ -58,6 +58,11 @@ class SearchViewController: UIViewController, UICollectionViewDelegate {
     }
     
 }
+
+extension SearchViewController: UICollectionViewDelegate {
+    
+}
+
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         searchController.searchBar.rx.text // -> text 입력이 끝났을 때 (Enter 눌렀을 때)

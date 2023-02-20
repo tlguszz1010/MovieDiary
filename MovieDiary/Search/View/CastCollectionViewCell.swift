@@ -14,8 +14,45 @@ class CastCollectionViewCell: UICollectionViewCell {
     let castImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 10
-        image.layer.borderColor = UIColor.black.cgColor
-        image.layer.borderWidth = 1
         return image
     }()
+    
+    let castName: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let castStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .fillProportionally
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUPView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUPView() {
+        addSubview(castStackView)
+        [castImage, castName].forEach {
+            castStackView.addArrangedSubview($0)
+        }
+        castStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        castImage.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.7)
+        }
+    }
 }
