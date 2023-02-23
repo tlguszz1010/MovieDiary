@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class SearchResultCollectionViewCell: UICollectionViewCell {
     static let identifier = "SearchResultCollectionViewCell"
@@ -85,5 +86,10 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-20)
         }
         
+    }
+    func configure(with item: ResultModel) {
+        posterImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + item.posterPath))
+        releaseDateLabel.text = item.releaseDate
+        titleLabel.text = item.title
     }
 }

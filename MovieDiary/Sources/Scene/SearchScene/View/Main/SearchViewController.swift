@@ -10,8 +10,10 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
+/// 🏮 fianl
 class SearchViewController: UIViewController {
-    let viewModel = SearchViewModel()
+    let viewModel = SearchViewModel() // DI
+
     let mainView = SearchView()
     let disposeBag = DisposeBag()
     var data: ResponseDetailData?
@@ -40,6 +42,9 @@ class SearchViewController: UIViewController {
     private func bindDataSource() {
         viewModel.output.dataList
             .bind(to: mainView.collectionView.rx.items(cellIdentifier: SearchResultCollectionViewCell.identifier, cellType: SearchResultCollectionViewCell.self)) { _, ele, cell in
+                
+                // --> configure 매서드들 cell 에서 처리
+                //cell.configure(with: <#T##ResultModel#>)
                 cell.posterImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + ele.posterPath))
                 cell.releaseDateLabel.text = ele.releaseDate
                 cell.titleLabel.text = ele.title
@@ -51,12 +56,13 @@ class SearchViewController: UIViewController {
         mainView.collectionView.rx
             .modelSelected(ResultModel.self)
             .map { $0.id }
-            .subscribe(onNext: {[weak self] id in
+            .subscribe(onNext: { [weak self] id in
+                //guard let self = self else { self } --> 선 차단
                 let detailVC = SearchDetailViewController()
                 detailVC.viewModel.input.viewDidLoadTrigger.onNext(id)
                 self?.navigationController?.pushViewController(detailVC, animated: true)
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: self.disposeBag) //self
         self.mainView.collectionView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
      
@@ -83,8 +89,8 @@ extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate 
     func willDismissSearchController(_ searchController: UISearchController) {
         mainView.collectionView.reloadData()
     }
-    
-    func searchBar() {
+
+    private func searchBar() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "영화를 검색해주세요"
         searchController.obscuresBackgroundDuringPresentation = false

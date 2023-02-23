@@ -35,7 +35,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setUPView()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

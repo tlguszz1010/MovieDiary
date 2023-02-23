@@ -28,6 +28,7 @@ class SearchViewModel: BaseViewModel {
         inputSubcribe()
     }
     
+    // 에러처리
     private func inputSubcribe() {
         self.input.searchTrigger
             .subscribe(onNext: {[weak self] text in

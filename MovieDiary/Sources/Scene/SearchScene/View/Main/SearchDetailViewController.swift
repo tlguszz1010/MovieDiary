@@ -17,7 +17,7 @@ class SearchDetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     override func loadView() {
-        super.loadView()
+        super.loadView() ///
         self.view = mainView
     }
     override func viewDidLoad() {
@@ -34,12 +34,12 @@ class SearchDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         mainView.castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: CastCollectionViewCell.identifier)
     }
-    
-    private func dataSource() {
+    private func dataSource() { // 다형성 --> bind()
         viewModel.output.idData
             .filter {$0 != nil}
             .subscribe(onNext: {[weak self] data in
                 guard let data = data else { return }
+                 ///
                 self?.mainView.posterImageView.kf.setImage(with: URL(string: BaseURL.baseImageURL + data.backdropPath))
                 self?.mainView.overViewLabel.text = data.overview
             })
@@ -49,6 +49,7 @@ class SearchDetailViewController: UIViewController {
             .bind(to: mainView.castCollectionView.rx.items(cellIdentifier: CastCollectionViewCell.identifier, cellType: CastCollectionViewCell.self)) { _, ele, cell in
                 cell.castImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + (ele.profilePath ?? "")))
                 if ele.profilePath == nil {
+                    ///
                     cell.castImage.image = UIImage(named: "blankPerson")
                 }
                 cell.castName.text = ele.name
@@ -57,7 +58,7 @@ class SearchDetailViewController: UIViewController {
         
         mainView.diaryButton.rx.tap
             .bind {
-                let writeVC = WriteViewController()
+                let writeVC = WriteViewController() ///
                 self.navigationController?.pushViewController(writeVC, animated: true)
             }
             .disposed(by: disposeBag)

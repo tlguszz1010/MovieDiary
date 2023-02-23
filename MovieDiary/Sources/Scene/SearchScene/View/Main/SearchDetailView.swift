@@ -64,6 +64,7 @@ class SearchDetailView: BaseView {
     }()
     
     func buttonConfigureUI() {
+        /// 코드 일관성
         var bookMarkconfig = UIButton.Configuration.filled()
         bookMarkconfig.image = UIImage(systemName: "star.fill")
         bookMarkconfig.baseForegroundColor = UIColor.black
@@ -100,7 +101,7 @@ class SearchDetailView: BaseView {
         stackView.spacing = 5
         return stackView
     }()
-    
+    // 하이라키 네이밍 Set
     override func makeConfigures() {
         self.backgroundColor = .white
         self.addSubview(scrollView)
