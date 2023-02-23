@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 import RxSwift
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     // MARK: View
-    let mainView = HomeView()
+    private let mainView = HomeView()
     override func loadView() {
         self.view = mainView
     }
@@ -23,17 +23,17 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
-    func collectionViewConfigure() {
+    private func collectionViewConfigure() {
         mainView.movieCollectionView.delegate = self
         mainView.movieCollectionView.dataSource = self
         mainView.movieCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         mainView.movieCollectionView.register(HomeCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeCollectionHeaderView.identifier)
     }
-    func navigationUI() {
+    private func navigationUI() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonClicked))
         self.navigationItem.rightBarButtonItem?.tintColor = .black
     }
-    func configure() {
+    private func configure() {
         collectionViewConfigure()
         navigationUI()
     }

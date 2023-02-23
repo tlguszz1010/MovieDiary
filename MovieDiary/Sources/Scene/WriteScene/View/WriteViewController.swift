@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WriteViewController: UIViewController {
+final class WriteViewController: UIViewController {
     private let mainView = WriteView()
     
     override func loadView() {

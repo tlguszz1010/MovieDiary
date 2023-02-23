@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SearchDetailView: BaseView {
+final class SearchDetailView: BaseView {
     let contentView: UIView = {
         let view = UIView()
         return view

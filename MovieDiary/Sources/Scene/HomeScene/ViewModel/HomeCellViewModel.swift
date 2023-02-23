@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class CellViewModel: BaseViewModel {
+final class CellViewModel: BaseViewModel {
     // View로부터 받은 요청
     struct Input {
         let initTrigger: PublishSubject<Int> = PublishSubject()

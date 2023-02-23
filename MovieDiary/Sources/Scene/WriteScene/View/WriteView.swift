@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-class WriteView: BaseView {
-    
+final class WriteView: BaseView {
     let textView: UITextView = {
         let view = UITextView()
         view.textColor = .black

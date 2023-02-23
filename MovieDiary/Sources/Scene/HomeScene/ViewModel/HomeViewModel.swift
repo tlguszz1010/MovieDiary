@@ -8,7 +8,7 @@
 import Foundation
 
 // 섹션을 입력받음 -> 거기에 해당하는 포스터리스트 반환
-class HomeViewModel: BaseViewModel { // 사실상 HomeViewModel은 필요없음
+final class HomeViewModel: BaseViewModel { // 사실상 HomeViewModel은 필요없음
     // View로부터 받은 요청
     struct Input {
     }

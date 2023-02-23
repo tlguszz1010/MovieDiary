@@ -11,12 +11,11 @@ import RxCocoa
 import Kingfisher
 
 /// 🏮 fianl
-class SearchViewController: UIViewController {
-    let viewModel = SearchViewModel() // DI
+final class SearchViewController: UIViewController {
+    private let viewModel = SearchViewModel() // DI
 
-    let mainView = SearchView()
-    let disposeBag = DisposeBag()
-    var data: ResponseDetailData?
+    private let mainView = SearchView()
+    private let disposeBag = DisposeBag()
     
     override func loadView() {
         self.view = mainView

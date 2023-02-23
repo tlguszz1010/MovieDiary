@@ -10,9 +10,9 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-class SearchDetailViewController: UIViewController {
+final class SearchDetailViewController: UIViewController {
     
-    let mainView = SearchDetailView()
+    private let mainView = SearchDetailView()
     let viewModel = SearchDetailViewModel()
     private let disposeBag = DisposeBag()
     

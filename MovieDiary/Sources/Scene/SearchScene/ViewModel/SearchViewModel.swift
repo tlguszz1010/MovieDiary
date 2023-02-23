@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SearchViewModel: BaseViewModel {
+final class SearchViewModel: BaseViewModel {
     struct Input {
         let searchTrigger: PublishSubject<String?> = PublishSubject()
     }

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SearchDetailViewModel: BaseViewModel {
+final class SearchDetailViewModel: BaseViewModel {
     struct Input {
         let viewDidLoadTrigger: PublishSubject<Int> = PublishSubject()
     }
@@ -53,6 +53,5 @@ class SearchDetailViewModel: BaseViewModel {
                     .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
-       
     }
 }

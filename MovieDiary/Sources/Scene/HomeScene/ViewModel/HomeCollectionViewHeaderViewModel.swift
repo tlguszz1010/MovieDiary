@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class HomeCollectionViewHeaderViewModel: BaseViewModel {
+final class HomeCollectionViewHeaderViewModel: BaseViewModel {
     struct Input {
         let initTrigger: PublishSubject<String?> = PublishSubject()
     }

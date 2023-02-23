@@ -11,11 +11,11 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 
-class HomeCollectionViewCell: UICollectionViewCell {
+final class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
     let viewModel = CellViewModel()
-    let disposeBag = DisposeBag()
-    let collectionView: UICollectionView
+    private let disposeBag = DisposeBag()
+    private let collectionView: UICollectionView
     
     override init(frame: CGRect) {
         
@@ -29,7 +29,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .systemPink
     }
     
-    func collectionViewUI() {
+    private func collectionViewUI() {
         collectionView.delegate = self
         collectionView.register(HomeInsideCollectionViewCell.self, forCellWithReuseIdentifier: HomeInsideCollectionViewCell.identifier)
         self.addSubview(collectionView)
@@ -38,7 +38,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func dataSource() {
+    private func dataSource() {
         // idx - row, ele - element, cell - cell
         viewModel.output.posterList
             .bind(to: collectionView.rx.items(cellIdentifier: HomeInsideCollectionViewCell.identifier, cellType: HomeInsideCollectionViewCell.self)) { _, ele, cell in

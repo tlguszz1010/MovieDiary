@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CastCollectionViewCell: UICollectionViewCell {
+final class CastCollectionViewCell: UICollectionViewCell {
     static let identifier = "CastCollectionViewCell"
     
     let castImage: UIImageView = {
