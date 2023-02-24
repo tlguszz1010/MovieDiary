@@ -6,17 +6,27 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class WriteViewController: UIViewController {
     private let mainView = WriteView()
+    private let localRealm = try? Realm()
+    private var tasks: Results<DiaryList>!
     
     override func loadView() {
         super.loadView()
         self.view = mainView
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // 배열에 Realm의 데이터 초기화
+        guard let localRealm = localRealm else { return }
+        tasks = localRealm.objects(DiaryList.self).sorted(byKeyPath: "writeDay", ascending: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
         navigationUI()
     }
     
@@ -27,6 +37,14 @@ final class WriteViewController: UIViewController {
     }
     
     @objc func completeButtonClicked() {
+        var task = DiaryList()
+        guard let localRealm = localRealm else { return }
+        task = DiaryList(text: mainView.textView.text, writeDay: Date())
+        try? localRealm.write {
+            localRealm.add(task)
+            print("Realm Succedd")
+        }
         self.navigationController?.popViewController(animated: true)
+        
     }
 }

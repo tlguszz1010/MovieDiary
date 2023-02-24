@@ -8,16 +8,15 @@
 import UIKit
 
 class BaseView: UIView {
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeConfigures()
         makeConstraints()
+        backgroundColor = .white
+
     }
     
-    func makeConfigures() {
-//        self.backgroundColor = .white
-    }
+    func makeConfigures() {}
     func makeConstraints() {}
     
     @available(*, unavailable)

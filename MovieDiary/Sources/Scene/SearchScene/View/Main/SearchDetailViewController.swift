@@ -23,7 +23,7 @@ final class SearchDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCell()
-        dataSource()
+        bind()
         navigationUI()
     }
     private func navigationUI() {
@@ -34,7 +34,7 @@ final class SearchDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         mainView.castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: CastCollectionViewCell.identifier)
     }
-    private func dataSource() { // 다형성 --> bind()
+    private func bind() { // 다형성 --> bind()
         viewModel.output.idData
             .filter {$0 != nil}
             .subscribe(onNext: {[weak self] data in
@@ -58,7 +58,7 @@ final class SearchDetailViewController: UIViewController {
         
         mainView.diaryButton.rx.tap
             .bind {
-                let writeVC = WriteViewController() ///
+                let writeVC = WriteViewController() 
                 self.navigationController?.pushViewController(writeVC, animated: true)
             }
             .disposed(by: disposeBag)

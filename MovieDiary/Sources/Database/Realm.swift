@@ -11,8 +11,11 @@ import RealmSwift
 class DiaryList: Object {
     @Persisted var allText: String?
     @Persisted var writeDay: Date
+   
+    @Persisted(primaryKey: true) var objectID: ObjectId
     
-    init(text: String, writeDay: Date) {
+    convenience init(text: String, writeDay: Date) {
+        self.init()
         self.allText = text
         self.writeDay = writeDay
     }

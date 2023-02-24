@@ -18,7 +18,6 @@ final class WriteView: BaseView {
     
     override func makeConfigures() {
         self.addSubview(textView)
-        self.backgroundColor = .white
     }
     
     override func makeConstraints() {

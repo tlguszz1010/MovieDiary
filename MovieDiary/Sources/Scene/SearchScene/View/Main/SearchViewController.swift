@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-/// 🏮 fianl
+/// 🏮 final
 final class SearchViewController: UIViewController {
     private let viewModel = SearchViewModel() // DI
 
@@ -57,14 +57,23 @@ final class SearchViewController: UIViewController {
             .map { $0.id }
             .subscribe(onNext: { [weak self] id in
                 //guard let self = self else { self } --> 선 차단
+                guard let self = self else { return }
                 let detailVC = SearchDetailViewController()
                 detailVC.viewModel.input.viewDidLoadTrigger.onNext(id)
-                self?.navigationController?.pushViewController(detailVC, animated: true)
+                self.navigationController?.pushViewController(detailVC, animated: true)
             })
             .disposed(by: self.disposeBag) //self
         self.mainView.collectionView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
-     
+    }
+    
+    private func searchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "영화를 검색해주세요"
+        searchController.obscuresBackgroundDuringPresentation = false
+        self.navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
 }
@@ -89,12 +98,5 @@ extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate 
         mainView.collectionView.reloadData()
     }
 
-    private func searchBar() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.placeholder = "영화를 검색해주세요"
-        searchController.obscuresBackgroundDuringPresentation = false
-        self.navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-    }
+    
 }
