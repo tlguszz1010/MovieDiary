@@ -60,56 +60,26 @@ final class SearchDetailView: BaseView {
     }()
     
     let bookMarkButton: UIButton = {
-        var bookMarkconfig = UIButton.Configuration.filled()
-        bookMarkconfig.image = UIImage(systemName: "star.fill")
-        bookMarkconfig.baseForegroundColor = UIColor.black
-        bookMarkconfig.baseBackgroundColor = UIColor.white
-        bookMarkconfig.background.strokeColor = .black
-        bookMarkconfig.background.strokeWidth = 1
-        bookMarkconfig.background.cornerRadius = 5
-        bookMarkconfig.imagePlacement = .trailing
-        bookMarkconfig.imagePadding = 5
-        var bookmarkTitle = AttributedString.init("즐겨찾기")
-        bookmarkTitle.font = UIFont.systemFont(ofSize: 15)
-        bookMarkconfig.attributedTitle = bookmarkTitle
+        var bookMarkConfig = UIButton.Configuration.filled()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 10)
+        bookMarkConfig.image = UIImage(systemName: "star")
+        bookMarkConfig.baseForegroundColor = UIColor.black
+        bookMarkConfig.baseBackgroundColor = UIColor.white
+        bookMarkConfig.background.strokeColor = .black
+        bookMarkConfig.background.strokeWidth = 1
+        bookMarkConfig.background.cornerRadius = 5
+        bookMarkConfig.imagePlacement = .trailing
+        bookMarkConfig.imagePadding = 5
+        bookMarkConfig.preferredSymbolConfigurationForImage = imageConfig
         let button = UIButton()
-        button.configuration = bookMarkconfig
+        button.configuration = bookMarkConfig
         return button
-    }()
-    
-    let diaryButton: UIButton = {
-        var diaryTitle = AttributedString.init("기록하기")
-        diaryTitle.font = UIFont.systemFont(ofSize: 15)
-        var diaryconfig = UIButton.Configuration.filled()
-        diaryconfig.imagePlacement = .trailing
-        diaryconfig.imagePadding = 5
-        diaryconfig.baseBackgroundColor = UIColor.white
-        diaryconfig.attributedTitle = diaryTitle
-        diaryconfig.background.strokeColor = .black
-        diaryconfig.background.strokeWidth = 1
-        diaryconfig.background.cornerRadius = 5
-        diaryconfig.image = UIImage(systemName: "pencil")
-        diaryconfig.baseForegroundColor = UIColor.black
-        let button = UIButton()
-        button.configuration = diaryconfig
-        return button
-    }()
-    
-    let buttonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
-        return stackView
     }()
     // 하이라키 네이밍 Set
     override func makeConfigures() {
         self.backgroundColor = .white
-        [bookMarkButton, diaryButton].forEach {
-            buttonStackView.addArrangedSubview($0)
-        }
         
-        [posterImageView, buttonStackView].forEach {
+        [posterImageView, bookMarkButton].forEach {
             backView.addSubview($0)
         }
         
@@ -134,23 +104,24 @@ final class SearchDetailView: BaseView {
         backView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.3)
+            make.height.equalToSuperview().multipliedBy(0.8)
         }
         
-        buttonStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+        bookMarkButton.snp.makeConstraints { make in
+            make.width.equalTo(30)
+            make.height.equalTo(30)
             make.trailing.equalToSuperview().inset(10)
-            make.width.equalToSuperview().multipliedBy(0.6)
-            make.height.equalToSuperview().multipliedBy(0.15)
+            make.bottom.equalToSuperview()
         }
         
         posterImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.bottom.horizontalEdges.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.85)
+            make.horizontalEdges.equalToSuperview()
         }
         
         overViewLabel.snp.makeConstraints { make in
-            make.top.equalTo(posterImageView.snp.bottom).offset(20)
+            make.top.equalTo(backView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.bottom.equalTo(castLabel.snp.top).offset(-20)
         }

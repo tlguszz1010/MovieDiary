@@ -57,10 +57,9 @@ final class SearchDetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        mainView.diaryButton.rx.tap
+        mainView.bookMarkButton.rx.tap
             .bind {
-                let writeVC = WriteViewController()
-                self.navigationController?.pushViewController(writeVC, animated: true)
+                
             }
             .disposed(by: disposeBag)
     }
