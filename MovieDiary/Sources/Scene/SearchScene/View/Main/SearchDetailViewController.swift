@@ -27,7 +27,8 @@ final class SearchDetailViewController: UIViewController {
         navigationUI()
     }
     private func navigationUI() {
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = true
     }
     private func configureCell() {
         mainView.castCollectionView.rx.setDelegate(self)
@@ -58,7 +59,7 @@ final class SearchDetailViewController: UIViewController {
         
         mainView.diaryButton.rx.tap
             .bind {
-                let writeVC = WriteViewController() 
+                let writeVC = WriteViewController()
                 self.navigationController?.pushViewController(writeVC, animated: true)
             }
             .disposed(by: disposeBag)

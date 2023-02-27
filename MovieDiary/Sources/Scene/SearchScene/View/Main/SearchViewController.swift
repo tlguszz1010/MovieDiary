@@ -22,7 +22,6 @@ final class SearchViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         searchBar()
         configureCell()
         bindDataSource()
@@ -31,7 +30,7 @@ final class SearchViewController: UIViewController {
     }
     
     private func navigationUI() {
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
     }
     
     private func configureCell() {
@@ -97,6 +96,4 @@ extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate 
     func willDismissSearchController(_ searchController: UISearchController) {
         mainView.collectionView.reloadData()
     }
-
-    
 }

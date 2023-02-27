@@ -11,12 +11,13 @@ import SnapKit
 final class WriteView: BaseView {
     let textView: UITextView = {
         let view = UITextView()
-        view.textColor = .black
+        view.textColor = .white
         view.font = UIFont.systemFont(ofSize: 15)
         return view
     }()
     
     override func makeConfigures() {
+        super.makeConfigures()
         self.addSubview(textView)
     }
     

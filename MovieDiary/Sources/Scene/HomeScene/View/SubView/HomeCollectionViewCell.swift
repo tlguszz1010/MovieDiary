@@ -18,15 +18,14 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     private let collectionView: UICollectionView
     
     override init(frame: CGRect) {
-        
         let layout = HomeInsideFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(frame: frame)
-        
+        self.backgroundColor = .black
+        collectionView.backgroundColor = .black
         collectionViewUI()
+        collectionView.contentInsetAdjustmentBehavior = .never
         dataSource()
-        
-        self.backgroundColor = .systemPink
     }
     
     private func collectionViewUI() {

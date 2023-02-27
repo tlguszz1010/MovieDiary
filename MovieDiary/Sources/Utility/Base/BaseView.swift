@@ -12,11 +12,11 @@ class BaseView: UIView {
         super.init(frame: frame)
         makeConfigures()
         makeConstraints()
-        backgroundColor = .white
-
+        
     }
-    
-    func makeConfigures() {}
+    func makeConfigures() {
+        self.backgroundColor = .white
+    }
     func makeConstraints() {}
     
     @available(*, unavailable)

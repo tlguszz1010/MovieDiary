@@ -13,6 +13,7 @@ class HomeView: BaseView {
         let view = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
         collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        collection.backgroundColor = .black
         return collection
     }()
     

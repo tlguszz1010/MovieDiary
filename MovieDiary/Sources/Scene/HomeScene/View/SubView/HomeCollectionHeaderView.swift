@@ -13,7 +13,7 @@ class HomeCollectionHeaderView: UICollectionReusableView {
 
     let headerLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .white
         label.font = .systemFont(ofSize: 30)
         return label
     }()

@@ -9,18 +9,21 @@ import UIKit
 import SnapKit
 
 final class SearchDetailView: BaseView {
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.backgroundColor = .red
+        return view
+    }()
+    
     let contentView: UIView = {
         let view = UIView()
+        view.backgroundColor = .black
         return view
     }()
     
     let backView: UIView = {
         let view = UIView()
-        return view
-    }()
-    
-    let scrollView: UIScrollView = {
-        let view = UIScrollView()
+        view.backgroundColor = .black
         return view
     }()
     
@@ -32,6 +35,7 @@ final class SearchDetailView: BaseView {
     let overViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -39,8 +43,9 @@ final class SearchDetailView: BaseView {
     let castLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .white
         label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor.black.cgColor
+        label.layer.borderColor = UIColor.white.cgColor
         label.text = "출연진"
         return label
     }()
@@ -50,21 +55,11 @@ final class SearchDetailView: BaseView {
         view.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
         collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        collection.backgroundColor = .black
         return collection
     }()
     
     let bookMarkButton: UIButton = {
-        let button = UIButton()
-        return button
-    }()
-    
-    let diaryButton: UIButton = {
-        let button = UIButton()
-        return button
-    }()
-    
-    func buttonConfigureUI() {
-        /// 코드 일관성
         var bookMarkconfig = UIButton.Configuration.filled()
         bookMarkconfig.image = UIImage(systemName: "star.fill")
         bookMarkconfig.baseForegroundColor = UIColor.black
@@ -77,11 +72,15 @@ final class SearchDetailView: BaseView {
         var bookmarkTitle = AttributedString.init("즐겨찾기")
         bookmarkTitle.font = UIFont.systemFont(ofSize: 15)
         bookMarkconfig.attributedTitle = bookmarkTitle
-        bookMarkButton.configuration = bookMarkconfig
-        
-        var diaryconfig = UIButton.Configuration.filled()
+        let button = UIButton()
+        button.configuration = bookMarkconfig
+        return button
+    }()
+    
+    let diaryButton: UIButton = {
         var diaryTitle = AttributedString.init("기록하기")
         diaryTitle.font = UIFont.systemFont(ofSize: 15)
+        var diaryconfig = UIButton.Configuration.filled()
         diaryconfig.imagePlacement = .trailing
         diaryconfig.imagePadding = 5
         diaryconfig.baseBackgroundColor = UIColor.white
@@ -91,8 +90,10 @@ final class SearchDetailView: BaseView {
         diaryconfig.background.cornerRadius = 5
         diaryconfig.image = UIImage(systemName: "pencil")
         diaryconfig.baseForegroundColor = UIColor.black
-        diaryButton.configuration = diaryconfig
-    }
+        let button = UIButton()
+        button.configuration = diaryconfig
+        return button
+    }()
     
     let buttonStackView: UIStackView = {
         let stackView = UIStackView()
@@ -104,9 +105,6 @@ final class SearchDetailView: BaseView {
     // 하이라키 네이밍 Set
     override func makeConfigures() {
         self.backgroundColor = .white
-        self.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        
         [bookMarkButton, diaryButton].forEach {
             buttonStackView.addArrangedSubview($0)
         }
@@ -118,7 +116,9 @@ final class SearchDetailView: BaseView {
         [backView, overViewLabel, castLabel, castCollectionView].forEach {
             contentView.addSubview($0)
         }
-        buttonConfigureUI()
+        scrollView.addSubview(contentView)
+        scrollView.contentInsetAdjustmentBehavior = .never
+        self.addSubview(scrollView)
     }
     
     override func makeConstraints() {
@@ -126,7 +126,7 @@ final class SearchDetailView: BaseView {
             make.edges.equalToSuperview()
         }
         contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.edges.equalToSuperview()
             make.height.equalToSuperview()
             make.width.equalTo(scrollView.snp.width)
         }
@@ -145,7 +145,7 @@ final class SearchDetailView: BaseView {
         }
         
         posterImageView.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(20)
+            make.top.equalToSuperview()
             make.bottom.horizontalEdges.equalToSuperview()
         }
         

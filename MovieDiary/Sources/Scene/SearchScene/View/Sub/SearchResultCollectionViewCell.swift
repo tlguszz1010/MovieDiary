@@ -13,12 +13,15 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     static let identifier = "SearchResultCollectionViewCell"
     let totalView: UIView = {
         let view = UIView()
+        view.backgroundColor = .gray
+        view.layer.cornerRadius = 10
         return view
     }()
     
     let posterImage: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .black
+        image.layer.cornerRadius = 10
+        image.clipsToBounds = true
         return image
     }()
     
@@ -33,6 +36,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "영화 제목"
+        label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -41,6 +45,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     let releaseDateLabel: UILabel = {
         let label = UILabel()
         label.text = "영화 개봉일"
+        label.textColor = .white
         label.textAlignment = .center
         return label
     }()

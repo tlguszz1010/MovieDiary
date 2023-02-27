@@ -33,7 +33,7 @@ final class WriteViewController: UIViewController {
     private func navigationUI() {
         let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonClicked))
         navigationItem.rightBarButtonItem = completeButton
-        completeButton.tintColor = .black
+        completeButton.tintColor = .white
     }
     
     @objc func completeButtonClicked() {

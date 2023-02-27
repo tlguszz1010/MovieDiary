@@ -13,10 +13,12 @@ final class SearchView: BaseView {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 4)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .black
         return view
     }()
     
     override func makeConfigures() {
+        super.makeConfigures()
         self.addSubview(collectionView)
     }
     
