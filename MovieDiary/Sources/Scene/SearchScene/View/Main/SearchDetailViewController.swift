@@ -35,7 +35,7 @@ final class SearchDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         mainView.castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: CastCollectionViewCell.identifier)
     }
-    private func bind() { // 다형성 --> bind()
+    private func bind() {
         viewModel.output.idData
             .filter {$0 != nil}
             .subscribe(onNext: {[weak self] data in
@@ -59,7 +59,21 @@ final class SearchDetailViewController: UIViewController {
         
         mainView.bookMarkButton.rx.tap
             .bind {
+                // View에 관한 작업인가?
+                let alert = UIAlertController(title: "알림", message: "즐겨찾기에 추가하시겠습니까?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "네", style: .default) {_ in
+                    // Realm의 즐겨찾기 목록에추가
+                    // ViewModel로 보내서 -> 뷰모델에서 렘에 저장을 해준다.
+                    
+                }
+                let cancelAction = UIAlertAction(title: "아니오", style: .cancel) {_ in
+                    // 즐겨찾기 추가 x
+                }
                 
+                alert.addAction(okAction)
+                alert.addAction(cancelAction)
+                
+                self.present(alert, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }

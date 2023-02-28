@@ -54,4 +54,6 @@ final class SearchDetailViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func 
 }
