@@ -55,13 +55,12 @@ final class SearchViewController: UIViewController {
             .modelSelected(ResultModel.self)
             .map { $0.id }
             .subscribe(onNext: { [weak self] id in
-                //guard let self = self else { self } --> 선 차단
                 guard let self = self else { return }
                 let detailVC = SearchDetailViewController()
                 detailVC.viewModel.input.viewDidLoadTrigger.onNext(id)
                 self.navigationController?.pushViewController(detailVC, animated: true)
             })
-            .disposed(by: self.disposeBag) //self
+            .disposed(by: self.disposeBag)
         self.mainView.collectionView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
     }

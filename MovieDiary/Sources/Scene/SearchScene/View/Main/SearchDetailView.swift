@@ -11,7 +11,7 @@ import SnapKit
 final class SearchDetailView: BaseView {
     let scrollView: UIScrollView = {
         let view = UIScrollView()
-        view.backgroundColor = .red
+        view.backgroundColor = .black
         return view
     }()
     
@@ -78,33 +78,32 @@ final class SearchDetailView: BaseView {
     // 하이라키 네이밍 Set
     override func makeConfigures() {
         self.backgroundColor = .white
-        
-        [posterImageView, bookMarkButton].forEach {
-            backView.addSubview($0)
-        }
-        
         [backView, overViewLabel, castLabel, castCollectionView].forEach {
             contentView.addSubview($0)
         }
+        [posterImageView, bookMarkButton].forEach {
+            backView.addSubview($0)
+        }
         scrollView.addSubview(contentView)
-        scrollView.contentInsetAdjustmentBehavior = .never
         self.addSubview(scrollView)
+        scrollView.contentInsetAdjustmentBehavior = .never
     }
     
     override func makeConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().offset(4)
         }
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalToSuperview()
+            make.height.equalToSuperview().offset(10)
             make.width.equalTo(scrollView.snp.width)
         }
         
         backView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.3)
         }
         
         bookMarkButton.snp.makeConstraints { make in
@@ -123,20 +122,21 @@ final class SearchDetailView: BaseView {
         overViewLabel.snp.makeConstraints { make in
             make.top.equalTo(backView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalTo(castLabel.snp.top).offset(-20)
+            make.height.equalToSuperview().multipliedBy(0.2)
         }
         
         castLabel.snp.makeConstraints { make in
+            make.top.equalTo(overViewLabel.snp.bottom).offset(30)
             make.leading.equalToSuperview().offset(20)
             make.height.equalToSuperview().multipliedBy(0.05)
             make.width.equalToSuperview().multipliedBy(0.2)
-            make.bottom.equalTo(castCollectionView.snp.top).offset(-10)
         }
         
         castCollectionView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
+            make.top.equalTo(castLabel.snp.bottom).offset(30)
             make.horizontalEdges.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
         }
+        
     }
 }

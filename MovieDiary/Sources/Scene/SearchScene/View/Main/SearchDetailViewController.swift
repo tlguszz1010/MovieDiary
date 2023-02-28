@@ -66,6 +66,6 @@ final class SearchDetailViewController: UIViewController {
 }
 extension SearchDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: view.frame.size.width / 3, height: 200)
+        CGSize(width: view.frame.size.width / 3, height: view.frame.size.height / 4)
     }
 }

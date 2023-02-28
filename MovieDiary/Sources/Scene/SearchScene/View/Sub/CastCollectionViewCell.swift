@@ -28,7 +28,8 @@ final class CastCollectionViewCell: UICollectionViewCell {
     let castStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.distribution = .fillProportionally
+        view.distribution = .equalSpacing
+        view.spacing = 10
         return view
     }()
     
@@ -49,11 +50,6 @@ final class CastCollectionViewCell: UICollectionViewCell {
         castStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        castImage.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.7)
-        }
+
     }
 }
