@@ -11,7 +11,7 @@ import RealmSwift
 class DiaryList: Object {
     @Persisted var allText: String?
     @Persisted var writeDay: Date
-   
+    @Persisted var bookMark: Bool = false
     @Persisted(primaryKey: true) var objectID: ObjectId
     
     convenience init(text: String, writeDay: Date) {

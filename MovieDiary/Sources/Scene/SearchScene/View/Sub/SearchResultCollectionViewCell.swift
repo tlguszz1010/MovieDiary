@@ -13,7 +13,6 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     static let identifier = "SearchResultCollectionViewCell"
     let totalView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
         view.layer.cornerRadius = 10
         return view
     }()
@@ -25,7 +24,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    let labelStaciView: UIStackView = {
+    let labelStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.distribution = .fillEqually
@@ -63,12 +62,12 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     func setUpView() {
         contentView.addSubview(totalView)
         
-        [posterImage, labelStaciView].forEach {
+        [posterImage, labelStackView].forEach {
             totalView.addSubview($0)
         }
         
-        labelStaciView.addArrangedSubview(titleLabel)
-        labelStaciView.addArrangedSubview(releaseDateLabel)
+        labelStackView.addArrangedSubview(titleLabel)
+        labelStackView.addArrangedSubview(releaseDateLabel)
 
     }
     
@@ -84,13 +83,12 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
             make.leading.equalToSuperview().offset(20)
         }
         
-        labelStaciView.snp.makeConstraints { make in
+        labelStackView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.7)
-            make.width.equalToSuperview().multipliedBy(0.6)
-            make.trailing.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview().inset(20)
+            make.leading.equalTo(posterImage.snp.trailing).offset(20)
         }
-        
     }
     func configure(with item: ResultModel) {
         posterImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + item.posterPath))

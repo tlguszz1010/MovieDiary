@@ -10,8 +10,9 @@ import SnapKit
 
 class HomeView: BaseView {
     let movieCollectionView: UICollectionView = {
-        let view = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.7)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collection.backgroundColor = .black
         return collection

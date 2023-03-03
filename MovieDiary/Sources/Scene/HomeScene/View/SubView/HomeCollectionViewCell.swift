@@ -20,6 +20,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         let layout = HomeInsideFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         super.init(frame: frame)
         self.backgroundColor = .black
         collectionView.backgroundColor = .black

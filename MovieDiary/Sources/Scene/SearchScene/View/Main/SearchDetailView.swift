@@ -52,9 +52,10 @@ final class SearchDetailView: BaseView {
     
     let castCollectionView: UICollectionView = {
         let view = UICollectionViewFlowLayout()
+        view.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
         view.scrollDirection = .horizontal
+
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
-        collection.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collection.backgroundColor = .black
         return collection
     }()
@@ -75,7 +76,7 @@ final class SearchDetailView: BaseView {
         button.configuration = bookMarkConfig
         return button
     }()
-    // 하이라키 네이밍 Set
+    
     override func makeConfigures() {
         self.backgroundColor = .white
         [backView, overViewLabel, castLabel, castCollectionView].forEach {
@@ -134,7 +135,7 @@ final class SearchDetailView: BaseView {
         
         castCollectionView.snp.makeConstraints { make in
             make.top.equalTo(castLabel.snp.bottom).offset(30)
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().offset(10)
             make.height.equalToSuperview().multipliedBy(0.3)
         }
         

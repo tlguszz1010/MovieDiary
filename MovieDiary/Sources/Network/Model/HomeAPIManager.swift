@@ -49,7 +49,6 @@ class HomeAPIManager {
     }
     
     func getCreidts(id: Int) -> Observable<CreditsResponseData> {
-        print(id)
         let url = BaseURL.creditsURL + "\(id)" + "/credits?" + APIKey.TMDB + EndPoint.language
         return Observable.create { emitter in
             AF.request(url, method: .get, headers: self.headers).validate(statusCode: 200...500).responseDecodable(of: CreditsResponseData.self) { response in

@@ -50,6 +50,10 @@ final class CastCollectionViewCell: UICollectionViewCell {
         castStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        castName.snp.makeConstraints { make in
+            make.height.equalTo(20)
+        }
 
     }
 }

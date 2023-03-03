@@ -24,7 +24,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         searchBar()
         configureCell()
-        bindDataSource()
+        bind()
         didSelected()
         navigationUI()
     }
@@ -37,17 +37,18 @@ final class SearchViewController: UIViewController {
         mainView.collectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.identifier)
     }
     
-    private func bindDataSource() {
+    private func bind() {
         viewModel.output.dataList
             .bind(to: mainView.collectionView.rx.items(cellIdentifier: SearchResultCollectionViewCell.identifier, cellType: SearchResultCollectionViewCell.self)) { _, ele, cell in
                 
-                // --> configure 매서드들 cell 에서 처리
-                //cell.configure(with: <#T##ResultModel#>)
-                cell.posterImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + ele.posterPath))
-                cell.releaseDateLabel.text = ele.releaseDate
-                cell.titleLabel.text = ele.title
+                // configure 매서드들 cell 에서 처리 -> VC에서 titleLabel, releaseDateLabel을 작성해주는게 나을지
+                cell.configure(with: ele)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func test() {
+        
     }
     
     private func didSelected() {
@@ -60,11 +61,9 @@ final class SearchViewController: UIViewController {
                 detailVC.viewModel.input.viewDidLoadTrigger.onNext(id)
                 self.navigationController?.pushViewController(detailVC, animated: true)
             })
-            .disposed(by: self.disposeBag)
-        self.mainView.collectionView.rx.setDelegate(self)
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
-    
+   
     private func searchBar() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "영화를 검색해주세요"
@@ -72,17 +71,15 @@ final class SearchViewController: UIViewController {
         self.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         self.navigationItem.hidesSearchBarWhenScrolling = false
+        
     }
-    
-}
-
-extension SearchViewController: UICollectionViewDelegate {
-    
 }
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        searchController.searchBar.rx.text // -> text 입력이 끝났을 때 (Enter 눌렀을 때)
+        searchController.searchBar.rx.text
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            // -> text 입력이 끝났을 때 (Enter 눌렀을 때)
             .subscribe(onNext: { [weak self] _ in
                 guard let text = searchController.searchBar.text else { return }
                 self?.viewModel.input.searchTrigger.onNext(text)
