@@ -19,7 +19,6 @@ final class CastCollectionViewCell: UICollectionViewCell {
     
     let castName: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
         label.textColor = .white
         label.textAlignment = .center
         return label

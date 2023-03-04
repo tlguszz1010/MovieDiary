@@ -52,7 +52,7 @@ final class SearchDetailView: BaseView {
     
     let castCollectionView: UICollectionView = {
         let view = UICollectionViewFlowLayout()
-        view.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
+        view.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 3.5)
         view.scrollDirection = .horizontal
 
         let collection = UICollectionView(frame: .zero, collectionViewLayout: view)
