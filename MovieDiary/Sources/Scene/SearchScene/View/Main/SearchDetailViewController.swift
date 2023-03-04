@@ -18,7 +18,6 @@ final class SearchDetailViewController: UIViewController {
     private var currentMovieID: Int?
     
     override func loadView() {
-        super.loadView()
         self.view = mainView
     }
     override func viewDidLoad() {
