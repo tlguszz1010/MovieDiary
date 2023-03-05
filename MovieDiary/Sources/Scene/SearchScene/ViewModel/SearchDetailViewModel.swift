@@ -44,26 +44,38 @@ final class SearchDetailViewModel: BaseViewModel {
     private func bookMarkTrigger() {
         self.input.bookMarkButtonTrigger
             .subscribe(onNext: {[weak self] id in
-                // 1. Realm에 title 추가
-                // 2. Realm에 title이 있는지 판단,
+                // 1. Realm에 movieID 추가
+                // 2. Realm에 movieID가 있는지 판단,
                 // 3. Bool 타입으로 View에 넘기기.
                 guard let self = self else { return }
                 self.id = id
-                let tasks = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(id)")
-                if let _ = tasks?.first?.movieID {
+                print("전달된 ID는 \(self.id!)이거야 🍓🍓🍓")
+                let tasks = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(self.id!)")
+//                print("\(tasks)는 이거야 🌈🌈🌈")
+                let firstTask = tasks?.first
+//                print("\(firstTask)는 이거야 🌈🌈🌈")
+                if firstTask != nil {
                     self.output.bookMarkState.accept(true)
+                    print("이미 존재해 🥎🥎🥎")
                 } else {
                     self.output.bookMarkState.accept(false)
+                    print("새로 추가해야돼 🏉🏉🏉")
                 }
             })
             .disposed(by: disposeBag)
         
         self.input.deleteDataTrigger
-            .subscribe(onNext: {[weak self] checkFlag in
+            .subscribe(onNext: {checkFlag in
                 if checkFlag {
                     // 삭제 O
+                    guard let task = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(self.id ?? 0)") else { return }
+                    try? self.localRealm?.write {
+                        self.localRealm?.delete(task)
+                    }
+                    print("데이터 삭제할거야 🌍🌍🌍")
                 } else {
                     // 삭제 X
+                    print("데이터 삭제 안할거야 🔥🔥🔥")
                 }
             })
             .disposed(by: disposeBag)
@@ -78,7 +90,7 @@ final class SearchDetailViewModel: BaseViewModel {
                         print("Realm Succedd 🥇🥇🥇")
                     }
                 } else {
-                    // 추가 X
+                    print("데이터 추가 안할거야 ☄️☄️☄️")
                 }
             })
             .disposed(by: disposeBag)
