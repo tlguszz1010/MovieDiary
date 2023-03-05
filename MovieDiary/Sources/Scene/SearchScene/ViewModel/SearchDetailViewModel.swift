@@ -51,9 +51,7 @@ final class SearchDetailViewModel: BaseViewModel {
                 self.id = id
                 print("전달된 ID는 \(self.id!)이거야 🍓🍓🍓")
                 let tasks = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(self.id!)")
-//                print("\(tasks)는 이거야 🌈🌈🌈")
                 let firstTask = tasks?.first
-//                print("\(firstTask)는 이거야 🌈🌈🌈")
                 if firstTask != nil {
                     self.output.bookMarkState.accept(true)
                     print("이미 존재해 🥎🥎🥎")

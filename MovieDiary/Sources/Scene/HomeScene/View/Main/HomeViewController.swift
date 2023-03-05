@@ -37,8 +37,9 @@ extension HomeViewController {
         navigationUI()
     }
     @objc func searchButtonClicked() {
-        let searchVc = SearchViewController()
-        self.navigationController?.pushViewController(searchVc, animated: true)
+        let searchVC = SearchViewController()
+        searchVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(searchVC, animated: true)
     }
 }
 
