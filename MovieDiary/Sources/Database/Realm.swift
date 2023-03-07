@@ -24,10 +24,14 @@ class DiaryList: Object {
 class BookMarkList: Object {
     @Persisted var movieID: Int?
     @Persisted var movieTitle: String?
+    @Persisted var movieReleaseDate: String?
+    @Persisted var moviePosterPath: String?
     
-    convenience init(id: Int, title: String) {
+    convenience init(id: Int, title: String, release: String, poster: String) {
         self.init()
         self.movieID = id
         self.movieTitle = title
+        self.movieReleaseDate = release
+        self.moviePosterPath = poster
     }
 }

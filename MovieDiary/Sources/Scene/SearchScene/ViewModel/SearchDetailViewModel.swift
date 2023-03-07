@@ -13,8 +13,7 @@ import RealmSwift
 final class SearchDetailViewModel: BaseViewModel {
     struct Input {
         let viewDidLoadTrigger: PublishSubject<Int> = PublishSubject()
-        let bookMarkButtonIDTrigger: PublishSubject<Int> = PublishSubject()
-        let bookMarkButtonTitleTrigger: PublishSubject<String> = PublishSubject()
+        let bookMarkButtonTrigger: PublishSubject<ResponseDetailData?> = PublishSubject()
         let deleteDataTrigger: PublishSubject<Bool> = PublishSubject()
         let addDataTrigger: PublishSubject<Bool> = PublishSubject()
     }
@@ -35,6 +34,8 @@ final class SearchDetailViewModel: BaseViewModel {
     private var task = BookMarkList()
     private var id: Int?
     private var title: String?
+    private var poster: String?
+    private var releaseDate: String?
     
     init(input: Input = Input(), output: Output = Output()) {
         self.input = input
@@ -44,20 +45,22 @@ final class SearchDetailViewModel: BaseViewModel {
     }
     
     private func bookMarkTrigger() {
-        
-        self.input.bookMarkButtonTitleTrigger
-            .subscribe(onNext: {[weak self] title in
-                self?.title = title
-            })
-        
-        self.input.bookMarkButtonIDTrigger
-            .subscribe(onNext: {[weak self] id in
+        self.input.bookMarkButtonTrigger
+            .subscribe(onNext: {[weak self] data in
                 // 1. Realm에 movieID 추가
                 // 2. Realm에 movieID가 있는지 판단,
                 // 3. Bool 타입으로 View에 넘기기.
                 guard let self = self else { return }
-                self.id = id
+                guard let data = data else { return }
+                self.id = data.id
+                self.title = data.title
+                self.poster = data.posterPath
+                self.releaseDate = data.releaseDate
+                
                 print("전달된 ID는 \(self.id!)이거야 🍓🍓🍓")
+                print("전달된 title은 \(self.title!)이거야 🍓🍓🍓")
+                print("전달된 poster는 \(self.poster!)이거야 🍓🍓🍓")
+                print("전달된 releaseDate는 \(self.releaseDate!)이거야 🍓🍓🍓")
                 let tasks = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(self.id!)")
                 let firstTask = tasks?.first
                 if firstTask != nil {
@@ -78,6 +81,10 @@ final class SearchDetailViewModel: BaseViewModel {
                     try? self.localRealm?.write {
                         self.localRealm?.delete(task)
                     }
+                    print("삭제된 ID는 \(self.id!)이거야 🍓🍓🍓")
+                    print("삭제된 title은 \(self.title!)이거야 🍓🍓🍓")
+                    print("삭제된 poster는 \(self.poster!)이거야 🍓🍓🍓")
+                    print("삭제된 releaseDate는 \(self.releaseDate!)이거야 🍓🍓🍓")
                     print("데이터 삭제할거야 🌍🌍🌍")
                 } else {
                     // 삭제 X
@@ -90,9 +97,18 @@ final class SearchDetailViewModel: BaseViewModel {
                 if checkFlag {
                     // 추가 O
                     guard let self else { return }
-                    self.task = BookMarkList(id: self.id ?? 0, title: self.title ?? "")
+                    guard let id = self.id else { return }
+                    guard let title = self.title else { return }
+                    guard let releaseDate = self.releaseDate else { return }
+                    guard let posterPath = self.poster else { return }
+                    
+                    self.task = BookMarkList(id: id, title: title, release: releaseDate, poster: posterPath)
                     try? self.localRealm?.write {
                         self.localRealm?.add(self.task)
+                        print("추가된 ID는 \(self.id!)이거야 🍓🍓🍓")
+                        print("추가된 title은 \(self.title!)이거야 🍓🍓🍓")
+                        print("추가된 poster는 \(self.poster!)이거야 🍓🍓🍓")
+                        print("추가된 releaseDate는 \(self.releaseDate!)이거야 🍓🍓🍓")
                         print("Realm Succedd 🥇🥇🥇")
                     }
                 } else {

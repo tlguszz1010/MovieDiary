@@ -19,6 +19,7 @@ struct ResponseDetailData: Codable {
     let productionCompanies: [ProductionCompany]
     let productionCountries: [ProductionCountry]
     let releaseDate: String
+    let posterPath: String
     let revenue, runtime: Int
     let spokenLanguages: [SpokenLanguage]
     let status, tagline, title: String
@@ -34,6 +35,7 @@ struct ResponseDetailData: Codable {
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview, popularity
+        case posterPath = "poster_path"
         case productionCompanies = "production_companies"
         case productionCountries = "production_countries"
         case releaseDate = "release_date"
@@ -54,6 +56,7 @@ struct ResponseDetailData: Codable {
         self.id = try container.decode(Int.self, forKey: .id)
         self.imdbID = try container.decode(String.self, forKey: .imdbID)
         self.originalLanguage = try container.decode(String.self, forKey: .originalLanguage)
+        self.posterPath = try container.decode(String.self, forKey: .posterPath)
         self.originalTitle = try container.decode(String.self, forKey: .originalTitle)
         self.overview = try container.decode(String.self, forKey: .overview)
         self.popularity = try container.decode(Double.self, forKey: .popularity)

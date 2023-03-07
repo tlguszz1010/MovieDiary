@@ -47,10 +47,6 @@ final class SearchViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func test() {
-        
-    }
-    
     private func didSelected() {
         mainView.collectionView.rx
             .modelSelected(ResultModel.self)
@@ -71,7 +67,6 @@ final class SearchViewController: UIViewController {
         self.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        
     }
 }
 
