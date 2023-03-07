@@ -13,7 +13,8 @@ import RealmSwift
 final class SearchDetailViewModel: BaseViewModel {
     struct Input {
         let viewDidLoadTrigger: PublishSubject<Int> = PublishSubject()
-        let bookMarkButtonTrigger: PublishSubject<Int> = PublishSubject()
+        let bookMarkButtonIDTrigger: PublishSubject<Int> = PublishSubject()
+        let bookMarkButtonTitleTrigger: PublishSubject<String> = PublishSubject()
         let deleteDataTrigger: PublishSubject<Bool> = PublishSubject()
         let addDataTrigger: PublishSubject<Bool> = PublishSubject()
     }
@@ -33,6 +34,7 @@ final class SearchDetailViewModel: BaseViewModel {
     private var tasks: Results<BookMarkList>?
     private var task = BookMarkList()
     private var id: Int?
+    private var title: String?
     
     init(input: Input = Input(), output: Output = Output()) {
         self.input = input
@@ -42,7 +44,13 @@ final class SearchDetailViewModel: BaseViewModel {
     }
     
     private func bookMarkTrigger() {
-        self.input.bookMarkButtonTrigger
+        
+        self.input.bookMarkButtonTitleTrigger
+            .subscribe(onNext: {[weak self] title in
+                self?.title = title
+            })
+        
+        self.input.bookMarkButtonIDTrigger
             .subscribe(onNext: {[weak self] id in
                 // 1. Realm에 movieID 추가
                 // 2. Realm에 movieID가 있는지 판단,
@@ -82,7 +90,7 @@ final class SearchDetailViewModel: BaseViewModel {
                 if checkFlag {
                     // 추가 O
                     guard let self else { return }
-                    self.task = BookMarkList(id: self.id ?? 0)
+                    self.task = BookMarkList(id: self.id ?? 0, title: self.title ?? "")
                     try? self.localRealm?.write {
                         self.localRealm?.add(self.task)
                         print("Realm Succedd 🥇🥇🥇")
@@ -112,7 +120,6 @@ final class SearchDetailViewModel: BaseViewModel {
                 HomeAPIManager.shared.getCreidts(id: id)
                     .map { $0.cast }
                     .subscribe(onNext: { [weak self] cast in
-                        print(cast)
                         self?.output.cast.accept(cast)
                         
                     })

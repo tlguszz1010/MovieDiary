@@ -16,6 +16,7 @@ final class SearchDetailViewController: UIViewController {
     let viewModel = SearchDetailViewModel()
     private let disposeBag = DisposeBag()
     private var currentMovieID: Int?
+    private var currentMovieTitle: String?
     
     override func loadView() {
         self.view = mainView
@@ -44,13 +45,14 @@ final class SearchDetailViewController: UIViewController {
                 self.mainView.posterImageView.kf.setImage(with: URL(string: BaseURL.baseImageURL + data.backdropPath))
                 self.mainView.overViewLabel.text = data.overview
                 self.currentMovieID = data.id
+                self.currentMovieTitle = data.title
             })
             .disposed(by: disposeBag)
         
         viewModel.output.cast
             .bind(to: mainView.castCollectionView.rx.items(cellIdentifier: CastCollectionViewCell.identifier, cellType: CastCollectionViewCell.self)) { _, ele, cell in
                 cell.castImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + (ele.profilePath ?? "")))
-                if ele.profilePath == nil {
+                if ele.profilePath == "" {
                     cell.castImage.image = UIImage(named: "blankPerson")
                 }
                 cell.castName.text = ele.name
@@ -65,8 +67,9 @@ final class SearchDetailViewController: UIViewController {
                 // MARK: - 해당 영화 movieID Emit
                 
                 guard let currentMovieID = self.currentMovieID else { return }
-                self.viewModel.input.bookMarkButtonTrigger.onNext(currentMovieID)
-                print(currentMovieID)
+                guard let currentMovieTitle = self.currentMovieTitle else { return }
+                self.viewModel.input.bookMarkButtonIDTrigger.onNext(currentMovieID)
+                self.viewModel.input.bookMarkButtonTitleTrigger.onNext(currentMovieTitle)
                 // View에 관한 작업인가?
                 self.viewModel.output.bookMarkState
                     .subscribe(onNext: {[weak self] bookMarkState in

@@ -23,9 +23,11 @@ class DiaryList: Object {
 // 즐겨찾기 추가 된 영화 리스트
 class BookMarkList: Object {
     @Persisted var movieID: Int?
+    @Persisted var movieTitle: String?
     
-    convenience init(id: Int) {
+    convenience init(id: Int, title: String) {
         self.init()
         self.movieID = id
+        self.movieTitle = title
     }
 }

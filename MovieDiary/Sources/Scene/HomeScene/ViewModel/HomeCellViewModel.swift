@@ -35,7 +35,6 @@ final class CellViewModel: BaseViewModel {
                 HomeAPIManager.shared.getHomeAPIWithRx(url: APIIndex(rawValue: sec)!.sectionURL)
                     .map { $0.results.map { $0.posterPath }}
                     .subscribe(onNext: { [weak self] posterList in
-                        print("\(posterList) 🔥🔥🔥")
                         self?.output.posterList.accept(posterList)
                     })
                     .disposed(by: self!.disposeBag)
