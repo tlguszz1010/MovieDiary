@@ -19,7 +19,6 @@ class BookMarkViewController: UIViewController {
     override func loadView() {
         self.view = mainView
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // MARK: - ViewModel 시작

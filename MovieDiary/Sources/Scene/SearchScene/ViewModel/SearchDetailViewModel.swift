@@ -16,6 +16,7 @@ final class SearchDetailViewModel: BaseViewModel {
         let bookMarkButtonTrigger: PublishSubject<ResponseDetailData?> = PublishSubject()
         let deleteDataTrigger: PublishSubject<Bool> = PublishSubject()
         let addDataTrigger: PublishSubject<Bool> = PublishSubject()
+        let realmFetchTrigger: PublishSubject<Bool> = PublishSubject()
     }
     
     struct Output {
@@ -45,6 +46,7 @@ final class SearchDetailViewModel: BaseViewModel {
     }
     
     private func bookMarkTrigger() {
+        // MARK: - BookMark Button Clicked
         self.input.bookMarkButtonTrigger
             .subscribe(onNext: {[weak self] data in
                 // 1. Realm에 movieID 추가
@@ -73,25 +75,7 @@ final class SearchDetailViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        self.input.deleteDataTrigger
-            .subscribe(onNext: {checkFlag in
-                if checkFlag {
-                    // 삭제 O
-                    guard let task = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(self.id ?? 0)") else { return }
-                    try? self.localRealm?.write {
-                        self.localRealm?.delete(task)
-                    }
-                    print("삭제된 ID는 \(self.id!)이거야 🍓🍓🍓")
-                    print("삭제된 title은 \(self.title!)이거야 🍓🍓🍓")
-                    print("삭제된 poster는 \(self.poster!)이거야 🍓🍓🍓")
-                    print("삭제된 releaseDate는 \(self.releaseDate!)이거야 🍓🍓🍓")
-                    print("데이터 삭제할거야 🌍🌍🌍")
-                } else {
-                    // 삭제 X
-                    print("데이터 삭제 안할거야 🔥🔥🔥")
-                }
-            })
-            .disposed(by: disposeBag)
+        // MARK: - Realm Add
         self.input.addDataTrigger
             .subscribe(onNext: {[weak self] checkFlag in
                 if checkFlag {
@@ -113,6 +97,27 @@ final class SearchDetailViewModel: BaseViewModel {
                     }
                 } else {
                     print("데이터 추가 안할거야 ☄️☄️☄️")
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        // MARK: - Realm Delete
+        self.input.deleteDataTrigger
+            .subscribe(onNext: {checkFlag in
+                if checkFlag {
+                    // 삭제 O
+                    guard let task = self.localRealm?.objects(BookMarkList.self).filter("movieID == \(self.id ?? 0)") else { return }
+                    try? self.localRealm?.write {
+                        self.localRealm?.delete(task)
+                    }
+                    print("삭제된 ID는 \(self.id!)이거야 🍓🍓🍓")
+                    print("삭제된 title은 \(self.title!)이거야 🍓🍓🍓")
+                    print("삭제된 poster는 \(self.poster!)이거야 🍓🍓🍓")
+                    print("삭제된 releaseDate는 \(self.releaseDate!)이거야 🍓🍓🍓")
+                    print("데이터 삭제할거야 🌍🌍🌍")
+                } else {
+                    // 삭제 X
+                    print("데이터 삭제 안할거야 🔥🔥🔥")
                 }
             })
             .disposed(by: disposeBag)
