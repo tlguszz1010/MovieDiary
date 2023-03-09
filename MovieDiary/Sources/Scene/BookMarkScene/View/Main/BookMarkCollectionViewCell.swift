@@ -45,6 +45,18 @@ class BookMarkCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    let writeButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        var titleAttr = AttributedString.init("기록하기")
+        titleAttr.font = .systemFont(ofSize: 12, weight: .regular)
+        config.attributedTitle = titleAttr
+        config.baseBackgroundColor = .white
+        config.baseForegroundColor = .black
+        config.image = UIImage(systemName: "pencil")
+        let button = UIButton(configuration: config)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -58,7 +70,7 @@ class BookMarkCollectionViewCell: UICollectionViewCell {
     func setUpView() {
         contentView.addSubview(totalView)
         
-        [posterImage, labelStackView].forEach {
+        [posterImage, labelStackView, writeButton].forEach {
             totalView.addSubview($0)
         }
         
@@ -81,9 +93,16 @@ class BookMarkCollectionViewCell: UICollectionViewCell {
         
         labelStackView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.7)
+            make.height.equalToSuperview().multipliedBy(0.5)
             make.trailing.equalToSuperview().inset(20)
             make.leading.equalTo(posterImage.snp.trailing).offset(20)
+        }
+        
+        writeButton.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.25)
+            make.height.equalToSuperview().multipliedBy(0.1)
+            make.top.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(10)
         }
     }
     func configure(with item: ResultModel) {

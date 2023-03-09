@@ -23,7 +23,6 @@ final class SearchDetailViewModel: BaseViewModel {
         var idData: BehaviorRelay<ResponseDetailData?> = BehaviorRelay(value: nil)
         var cast: BehaviorRelay<[Cast]> = BehaviorRelay(value: [])
         var bookMarkState: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        
     }
     
     var input: Input

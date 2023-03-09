@@ -11,7 +11,7 @@ import SnapKit
 final class WriteView: BaseView {
     let textView: UITextView = {
         let view = UITextView()
-        view.textColor = .white
+        view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 15)
         return view
     }()
