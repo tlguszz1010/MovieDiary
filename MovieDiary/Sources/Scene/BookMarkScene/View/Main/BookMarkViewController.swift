@@ -36,24 +36,28 @@ class BookMarkViewController: UIViewController {
     
     private func configureCell() {
         viewModel.output.realmData
-            .bind(to: mainView.collectionView.rx.items(cellIdentifier: BookMarkCollectionViewCell.identifier, cellType: BookMarkCollectionViewCell.self)) {_, ele, cell in
+            .bind(to: mainView.collectionView.rx.items(cellIdentifier: BookMarkCollectionViewCell.identifier, cellType: BookMarkCollectionViewCell.self)) {indexPath, ele, cell in
                 guard let posterPath = ele.posterPath else { return }
                 guard let title = ele.title else { return }
                 guard let releaseDate = ele.releaseDate else { return }
-                guard let id = ele.id else { return }
                 cell.posterImage.kf.setImage(with: URL(string: BaseURL.baseImageURL + posterPath))
                 cell.releaseDateLabel.text = releaseDate
                 cell.titleLabel.text = title
-                self.movieID = id
-                cell.writeButton.addTarget(self, action: #selector(self.ButtonClicked), for: .touchUpInside)
+                cell.writeButton.tag = indexPath
+                cell.writeButton.addTarget(self, action: #selector(self.writeButtonClicked), for: .touchUpInside)
+                
             }
             .disposed(by: disposeBag)
     }
-    
-    @objc func ButtonClicked() {
+    @objc func writeButtonClicked(sender: UIButton) {
         let writeVC = WriteViewController()
         writeVC.hidesBottomBarWhenPushed = true
-        writeVC.movieID = movieID
+        
+        let index = sender.tag
+        let ele = viewModel.output.realmData.value[index]
+        guard let id = ele.id else { return }
+        writeVC.movieID = id
+        print("넘긴 movieID는 \(movieID) 💢💢💢")
         self.navigationController?.pushViewController(writeVC, animated: true)
     }
 }
