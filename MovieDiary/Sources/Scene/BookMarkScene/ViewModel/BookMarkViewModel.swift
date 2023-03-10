@@ -54,7 +54,7 @@ class BookMarkViewModel: BaseViewModel {
     private func viewDidLoadTrigger() {
         // MARK: - ViewDidLoadTrigger: 뷰가 로드되고나면 현재까지 렘에 있는 데이터를 그려준다.
         self.input.viewDidLoadTrigger
-            .subscribe({ _ in
+            .subscribe(onNext: { _ in
                 guard let bookmarkData = self.localRealm?.objects(BookMarkList.self) else { return }
                 var bookmarkDataArray = [RealmData]()
                 for bookmark in bookmarkData {
