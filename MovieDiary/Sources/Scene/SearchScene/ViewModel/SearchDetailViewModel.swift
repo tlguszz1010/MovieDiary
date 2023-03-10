@@ -114,6 +114,10 @@ final class SearchDetailViewModel: BaseViewModel {
                     print("삭제된 poster는 \(self.poster!)이거야 🍓🍓🍓")
                     print("삭제된 releaseDate는 \(self.releaseDate!)이거야 🍓🍓🍓")
                     print("데이터 삭제할거야 🌍🌍🌍")
+                    guard let writeRecordTask = self.localRealm?.objects(DiaryList.self).filter("movieId == \(self.id ?? 0)") else { return }
+                    try? self.localRealm?.write {
+                        self.localRealm?.delete(writeRecordTask)
+                    }
                 } else {
                     // 삭제 X
                     print("데이터 삭제 안할거야 🔥🔥🔥")

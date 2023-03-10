@@ -24,16 +24,13 @@ class CalendarViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        recordedDate()
+        viewModel.input.calendarViewWillAppearTrigger.onNext(())
+        self.mainView.calendar.reloadData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewDidLoadTrigger()
         configureCalendar()
-    }
-    
-    private func viewDidLoadTrigger() {
-        viewModel.input.calendarViewDidLoadTrigger.onNext(())
+        recordedDate()
     }
     
     private func configureCalendar() {
@@ -51,7 +48,7 @@ class CalendarViewController: UIViewController {
             .subscribe(onNext: {[weak self] dateList in
                 print("▶️▶️")
                 guard let self = self else { return }
-                
+                self.recordedDateArray = []
                 self.events = dateList
                 guard let events = self.events else { return }
                 for ele in events {
