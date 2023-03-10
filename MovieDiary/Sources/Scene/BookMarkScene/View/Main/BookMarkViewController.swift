@@ -44,6 +44,7 @@ class BookMarkViewController: UIViewController {
                 cell.releaseDateLabel.text = releaseDate
                 cell.titleLabel.text = title
                 cell.writeButton.tag = indexPath
+                print("indexPath야 \(indexPath) 💯💯💯")
                 cell.writeButton.addTarget(self, action: #selector(self.writeButtonClicked), for: .touchUpInside)
                 
             }
@@ -54,10 +55,12 @@ class BookMarkViewController: UIViewController {
         writeVC.hidesBottomBarWhenPushed = true
         
         let index = sender.tag
+        print("버튼의 tag는 ? \(index)야 💜💜💜")
         let ele = viewModel.output.realmData.value[index]
+        print("해당하는 index의 realmData는 \(ele)야 💛💛💛")
         guard let id = ele.id else { return }
         writeVC.movieID = id
-        print("넘긴 movieID는 \(movieID) 💢💢💢")
+        print("넘긴 movieID는 \(id) 💢💢💢")
         self.navigationController?.pushViewController(writeVC, animated: true)
     }
 }
