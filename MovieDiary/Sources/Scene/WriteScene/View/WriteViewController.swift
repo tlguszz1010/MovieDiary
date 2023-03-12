@@ -60,6 +60,5 @@ final class WriteViewController: UIViewController {
             }
         }
         self.navigationController?.popViewController(animated: true)
-        
     }
 }
